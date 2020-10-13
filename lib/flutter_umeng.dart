@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class UmengSdk {
-  static const MethodChannel _channel =
-      const MethodChannel('umeng_sdk');
+class UMeng {
+  static const MethodChannel _channel = const MethodChannel('umeng_sdk');
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -12,22 +11,22 @@ class UmengSdk {
   }
 
   static Future<dynamic> initCommon(String androidAppkey, String iosAppkey, String channel) async {
-    List<dynamic> params = [androidAppkey, iosAppkey ,channel];
-    final dynamic result =  await _channel.invokeMethod('initCommon', params);
+    List<dynamic> params = [androidAppkey, iosAppkey, channel];
+    final dynamic result = await _channel.invokeMethod('initCommon', params);
     return result;
   }
 
-  static void onEvent(String event, Map<String,dynamic> properties) {
-    List<dynamic> args = [event,properties];
+  static void onEvent(String event, Map<String, dynamic> properties) {
+    List<dynamic> args = [event, properties];
     _channel.invokeMethod('onEvent', args);
   }
 
-  static void onProfileSignIn (String userID) {
+  static void onProfileSignIn(String userID) {
     List<dynamic> args = [userID];
     _channel.invokeMethod('onProfileSignIn', args);
   }
 
-  static void onProfileSignOff () {
+  static void onProfileSignOff() {
     _channel.invokeMethod('onProfileSignOff');
   }
 
