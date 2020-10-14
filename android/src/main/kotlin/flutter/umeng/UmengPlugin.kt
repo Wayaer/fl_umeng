@@ -15,9 +15,9 @@ import java.lang.reflect.Method
 class UmengPlugin : FlutterPlugin, MethodCallHandler {
     private var context: Context? = null
     private var versionMatch = false
-
+    private lateinit var channel: MethodChannel
     override fun onAttachedToEngine(plugin: FlutterPluginBinding) {
-        val channel = MethodChannel(plugin.binaryMessenger, "Umeng")
+        channel = MethodChannel(plugin.binaryMessenger, "UMeng")
         channel.setMethodCallHandler(this)
         context = plugin.applicationContext
         try {
@@ -85,7 +85,10 @@ class UmengPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    override fun onDetachedFromEngine(binding: FlutterPluginBinding) {}
+    override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
+    }
+
     private fun initCommon(call: MethodCall) {
         val androidAppKey = call.argument<String>("androidAppKey")
         val channel = call.argument<String>("channel")

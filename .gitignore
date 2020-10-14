@@ -23,11 +23,12 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-      
+/.flutter-plugins
+/.flutter-plugins-dependencies
 
 # Android/IntelliJ
 #
-build/
+/build/
 .idea
 .gradle
 local.properties

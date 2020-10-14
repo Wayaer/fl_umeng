@@ -6,7 +6,7 @@
 @implementation UmengPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
-                                     methodChannelWithName:@"Umeng"
+                                     methodChannelWithName:@"UMeng"
                                      binaryMessenger:[registrar messenger]];
     UmengPlugin* plugin = [[UmengPlugin alloc] init];
     [registrar addMethodCallDelegate:plugin channel:channel];
