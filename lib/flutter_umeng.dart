@@ -5,10 +5,17 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = MethodChannel('UMeng');
 
 class UMeng {
+  ///初始化
   static Future<void> init({String androidAppKey, String iosAppKey, String channel}) async {
     if (_supportPlatform()) return;
     _channel.invokeMethod<dynamic>(
         'init', <String, String>{'androidAppKey': androidAppKey, 'iosAppKey': iosAppKey, 'channel': channel});
+  }
+
+  ///是否开启日志
+  static Future<void> setLogEnabled(bool logEnabled) async {
+    if (_supportPlatform()) return;
+    _channel.invokeMethod<dynamic>('setLogEnabled', <String, bool>{'logEnabled': logEnabled});
   }
 
   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）

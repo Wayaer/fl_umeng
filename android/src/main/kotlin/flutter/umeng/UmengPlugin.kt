@@ -71,6 +71,7 @@ class UmengPlugin : FlutterPlugin, MethodCallHandler {
             when (call.method) {
                 "init" -> initCommon(call)
                 "onEvent" -> onEvent(call)
+                "setLogEnabled" -> setLogEnabled(call)
                 "onProfileSignIn" -> MobclickAgent.onProfileSignIn(call.argument("userID"))
                 "onProfileSignOff" -> MobclickAgent.onProfileSignOff()
                 "setPageCollectionModeAuto" -> MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
@@ -89,6 +90,11 @@ class UmengPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
+    private fun setLogEnabled(call: MethodCall) {
+        val logEnabled = call.argument<Boolean>("logEnabled")
+        if (logEnabled != null) UMConfigure.setLogEnabled(logEnabled)
+    }
+
     private fun initCommon(call: MethodCall) {
         val androidAppKey = call.argument<String>("androidAppKey")
         val channel = call.argument<String>("channel")
@@ -100,6 +106,5 @@ class UmengPlugin : FlutterPlugin, MethodCallHandler {
         val map = call.argument<Map<String, *>>("properties")
         MobclickAgent.onEventObject(context, event, map)
     }
-
 
 }

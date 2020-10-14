@@ -1,5 +1,5 @@
 #import "UmengPlugin.h"
-
+#import <UMCommonLog/UMCommonLogHeaders.h>
 #import <UMCommon/UMConfigure.h>
 #import <UMAnalytics/MobClick.h>
 
@@ -15,7 +15,11 @@
     NSDictionary *args = call.arguments;
     if ([@"init" isEqualToString:call.method]){
         [UMConfigure initWithAppkey:args[@"iosAppKey"] channel:args[@"channel"]];
-    }else if ([@"onEvent" isEqualToString:call.method]){
+    }else if ([@"setLogEnabled" isEqualToString:call.method]){
+        [UMCommonLogManager setUpUMCommonLogManager];
+        BOOL logEnabled = [[args objectForKey:@"logEnabled"] boolValue];
+        [UMConfigure setLogEnabled:logEnabled];
+    }else if([@"onEvent" isEqualToString:call.method]){
         [MobClick event:args[@"event"] attributes:args[@"properties"]];
     }else if ([@"onProfileSignIn" isEqualToString:call.method]){
         [MobClick profileSignInWithPUID:args[@"userID"]];
@@ -34,7 +38,7 @@
     }else{
         result(FlutterMethodNotImplemented);
     }
-
+    
 }
 
 @end
