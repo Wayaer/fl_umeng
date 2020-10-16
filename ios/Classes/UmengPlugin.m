@@ -1,7 +1,7 @@
 #import "UmengPlugin.h"
 #import <UMCommonLog/UMCommonLogHeaders.h>
 #import <UMCommon/UMConfigure.h>
-#import <UMAnalytics/MobClick.h>
+#import <UMCommon/MobClick.h>
 
 @implementation UmengPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {

@@ -6,6 +6,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 
     dependencies {
@@ -18,6 +19,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 
@@ -25,7 +27,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -45,6 +47,9 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.core:core-ktx:1.3.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.umeng.umsdk:common:9.1.0"
+    implementation "com.umeng.umsdk:asms:1.1.3"
+    implementation "com.umeng.umsdk:crash:0.0.4"
 }
 repositories {
     mavenCentral()
