@@ -31,11 +31,12 @@ AndroidManifest.xml 添加以下代码
 -keep class com.umeng.** {*;}
 
 -keep class com.uc.** {*;}
-
--keepclassmembers class * {
+-keep class com.uc.crashsdk.** { *; }
+-keep interface com.uc.crashsdk.** { *; }
+-keep class members class * {
    public <init> (org.json.JSONObject);
 }
--keepclassmembers enum * {
+-keep class members enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
