@@ -39,7 +39,15 @@ AndroidManifest.xml 添加以下代码
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+-keep class com.zui.** {*;}
+-keep class com.miui.** {*;}
+-keep class com.heytap.** {*;}
+-keep class a.** {*;}
+-keep class com.vivo.** {*;}
 
+-keep public class 您的应用包名.R$*{
+public static final int *;
+}
 ```
 
 
