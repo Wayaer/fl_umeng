@@ -24,9 +24,26 @@ AndroidManifest.xml 添加以下代码
   </application>
 </manifest>
 ```
+## android 混淆设置
+
+如果您的应用使用了代码混淆，请添加如下配置，以避免【友盟+】SDK被错误混淆导致SDK不可用。
+```
+-keep class com.umeng.** {*;}
+
+-keep class com.uc.** {*;}
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+```
 
 
-## 如遇到 Duplicate class com.google.common.util.concurrent.ListenableFuture的错误
+## android 如遇到 Duplicate class com.google.common.util.concurrent.ListenableFuture的错误
 
 ```
 * What went wrong:
