@@ -44,14 +44,14 @@ android {
 }
 
 dependencies {
-    implementation "com.umeng.umsdk:common:9.1.6"
-    implementation "com.umeng.umsdk:asms:1.1.3"
-    implementation "com.umeng.umsdk:crash:0.0.5"
+    api "com.umeng.umsdk:common:9.1.6"
+    api "com.umeng.umsdk:asms:1.1.3"
+    api "com.umeng.umsdk:crash:0.0.5"
 
-    implementation  'com.umeng.umsdk:oaid_lenovo:1.0.0' // (可选)
-    implementation  'com.umeng.umsdk:oaid_mi:1.0.0' // (可选)
-    implementation  'com.umeng.umsdk:oaid_oppo:1.0.4' // (可选)
-    implementation  'com.umeng.umsdk:oaid_vivo:1.0.0.1' // (可选)
+    api  'com.umeng.umsdk:oaid_lenovo:1.0.0' // (可选)
+    api  'com.umeng.umsdk:oaid_mi:1.0.0' // (可选)
+    api  'com.umeng.umsdk:oaid_oppo:1.0.4' // (可选)
+    api  'com.umeng.umsdk:oaid_vivo:1.0.0.1' // (可选)
 }
 repositories {
     mavenCentral()

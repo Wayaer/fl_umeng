@@ -1,6 +1,5 @@
-name: example
+name: umeng
 description: A new Flutter project.
-
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
@@ -12,6 +11,8 @@ dependencies:
     sdk: flutter
   flutter_umeng:
     path: ../
+  flutter_waya:
+    path: ../../flutter_waya
 
 
 dev_dependencies:
