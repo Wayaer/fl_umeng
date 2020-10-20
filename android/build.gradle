@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     implementation 'com.umeng.umsdk:common:9.1.6'
     implementation "com.umeng.umsdk:asms:1.1.3"
 
