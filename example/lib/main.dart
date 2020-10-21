@@ -22,7 +22,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('UMeng example'),
       ),
-      body: Center(child: Text('UMeng 初始化完成')),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Center(child: Text('UMeng 初始化完成'))],
+      ),
     );
   }
 }

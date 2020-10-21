@@ -27,16 +27,21 @@ AndroidManifest.xml 添加以下代码
 ## android 混淆设置
 
 如果您的应用使用了代码混淆，请添加如下配置，以避免【友盟+】SDK被错误混淆导致SDK不可用。
+
+android/app 目录 添加
+```
+   proguard-rules.pro
+```
+并在【proguard-rules.pro】 添加以下混淆内容
 ```
 -keep class com.umeng.** {*;}
 
 -keep class com.uc.** {*;}
--keep class com.uc.crashsdk.** { *; }
--keep interface com.uc.crashsdk.** { *; }
--keep class members class * {
+
+-keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }
--keep class members enum * {
+-keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
@@ -49,6 +54,24 @@ AndroidManifest.xml 添加以下代码
 -keep public class 您的应用包名.R$*{
 public static final int *;
 }
+```
+
+android/app/build.gradle
+添加以下内容
+```
+   buildTypes {
+        release {
+            ...
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ...
+            }
+        }
+        debug {
+            ...
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ...
+        }
+    }
 ```
 
 
