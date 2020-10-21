@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_umeng:
+  fl_umeng:
     path: ../
   flutter_waya:
     path: ../../flutter_waya

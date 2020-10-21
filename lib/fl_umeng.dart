@@ -7,6 +7,8 @@ const MethodChannel _channel = MethodChannel('UMeng');
 ///初始化
 Future<void> initUM({String androidAppKey, String iosAppKey, String channel}) async {
   if (_supportPlatform()) return;
+  if (Platform.isAndroid && androidAppKey == null) return;
+  if (Platform.isIOS && iosAppKey == null) return;
   _channel.invokeMethod<dynamic>(
       'init', <String, String>{'androidAppKey': androidAppKey, 'iosAppKey': iosAppKey, 'channel': channel});
 }

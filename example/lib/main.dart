@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_umeng/fl_umeng.dart';
+import 'package:fl_umeng/fl_umeng.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
