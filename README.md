@@ -50,6 +50,8 @@ android/app 目录 添加
 -keep class com.heytap.** {*;}
 -keep class a.** {*;}
 -keep class com.vivo.** {*;}
+-keep class com.uc.crashsdk.** { *; }
+-keep interface com.uc.crashsdk.** { *; }
 
 -keep public class 您的应用包名.R$*{
 public static final int *;
