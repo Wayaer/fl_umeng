@@ -18,7 +18,7 @@ Future<void> initWithUM(
 }
 
 ///是否开启日志
-Future<void> setLogEnabled(bool logEnabled) async {
+Future<void> setUMLogEnabled(bool logEnabled) async {
   if (_supportPlatform()) return;
   _channel.invokeMethod<dynamic>(
       'setLogEnabled', <String, bool>{'logEnabled': logEnabled});
