@@ -1,4 +1,3 @@
-# 友盟
 -keepclassmembers class * {
     public <init>(org.json.JSONObject);
 }
@@ -15,7 +14,3 @@
 -keep class com.vivo.** {*;}
 -keep class com.uc.crashsdk.** { *; }
 -keep interface com.uc.crashsdk.** { *; }
-
--keep public class com.umeng.example.R$*{
-public static final int *;
-}

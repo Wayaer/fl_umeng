@@ -5,7 +5,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   ///注册友盟
-  initUM(androidAppKey: '5f895b5a94846f78a9749090', iosAppKey: '5f89595094846f78a9748eca', channel: 'channel');
+  initUM(androidAppKey: '5f8fe2abfac90f1c19a8642e', iosAppKey: '5f8fe4d4c1122b44acfc7aa7', channel: 'channel');
 
   ///是否开启log
   setLogEnabledUM(true);
