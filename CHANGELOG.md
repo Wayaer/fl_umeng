@@ -1,3 +1,5 @@
+## [0.0.6]
+ * remove shell file
 ## [0.0.5]
  * simplify Android registration
  * modify method name
