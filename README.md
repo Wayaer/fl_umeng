@@ -9,36 +9,34 @@
 android/app 目录 添加
 ```
    proguard-rules.pro
+
 ```
 并在【proguard-rules.pro】 添加以下混淆内容
-```
+```groovy
 -keep public class 您的应用包名.R$*{
-public static final int *;
+   public static final int *;
 }
 ```
 
 android/app/build.gradle
 添加以下内容
-```
-   buildTypes {
+```groovy
+  
+buildTypes {
         release {
-            ...
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ...
-            }
         }
         debug {
-            ...
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ...
         }
-    }
+}
+
 ```
 
 
 ## android 如遇到 Duplicate class com.google.common.util.concurrent.ListenableFuture的错误
 
-```
+```shell script
 * What went wrong:
 Execution failed for task ':app:checkDebugDuplicateClasses'.
 > 1 exception was raised by workers:
@@ -49,7 +47,7 @@ Execution failed for task ':app:checkDebugDuplicateClasses'.
 
 android/app/build.gradle 添加以下代码
 
-```
+```groovy
 
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
