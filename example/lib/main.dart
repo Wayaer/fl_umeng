@@ -4,13 +4,13 @@ import 'package:fl_umeng/fl_umeng.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  ///注册友盟
+  /// 注册友盟
   initWithUM(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
 
-  ///是否开启log
+  /// 是否开启log
   setUMLogEnabled(true);
   runApp(MaterialApp(
     title: 'UMeng example',

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 const MethodChannel _channel = MethodChannel('UMeng');
 
-///初始化
+/// 初始化
 Future<void> initWithUM(
     {String androidAppKey, String iosAppKey, String channel}) async {
   if (_supportPlatform()) return;
@@ -17,7 +17,7 @@ Future<void> initWithUM(
   });
 }
 
-///是否开启日志
+/// 是否开启日志
 Future<void> setUMLogEnabled(bool logEnabled) async {
   if (_supportPlatform()) return;
   _channel.invokeMethod<dynamic>(
