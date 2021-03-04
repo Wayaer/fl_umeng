@@ -17,7 +17,7 @@ class UmengPlugin : FlutterPlugin {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "init" -> {
-                    val androidAppKey = call.argument<String>("androidAppKey")
+                    val androidAppKey = call.argument<String>("appKey")
                     val channel = call.argument<String>("channel")
                     UMConfigure.init(context, androidAppKey, channel, UMConfigure.DEVICE_TYPE_PHONE, null);
                 }

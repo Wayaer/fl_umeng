@@ -6,15 +6,16 @@ const MethodChannel _channel = MethodChannel('UMeng');
 
 /// 初始化
 Future<void> initWithUM(
-    {String androidAppKey, String iosAppKey, String channel}) async {
+    {String? androidAppKey, String? iosAppKey, String? channel}) async {
   if (_supportPlatform()) return;
-  if (Platform.isAndroid && androidAppKey == null) return;
-  if (Platform.isIOS && iosAppKey == null) return;
-  _channel.invokeMethod<dynamic>('init', <String, String>{
-    'androidAppKey': androidAppKey,
-    'iosAppKey': iosAppKey,
-    'channel': channel
-  });
+  if (Platform.isAndroid && androidAppKey != null && channel != null) {
+    _channel.invokeMethod<dynamic>(
+        'init', <String, String>{'appKey': androidAppKey, 'channel': channel});
+  }
+  if (Platform.isIOS && iosAppKey != null && channel != null) {
+    _channel.invokeMethod<dynamic>(
+        'init', <String, String>{'appKey': iosAppKey, 'channel': channel});
+  }
 }
 
 /// 是否开启日志

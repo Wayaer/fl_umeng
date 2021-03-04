@@ -12,7 +12,7 @@
     [channel setMethodCallHandler:^(FlutterMethodCall *  call, FlutterResult  result) {
         NSDictionary *args = call.arguments;
         if ([@"init" isEqualToString:call.method]){
-            [UMConfigure initWithAppkey:args[@"iosAppKey"] channel:args[@"channel"]];
+            [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
         }else if ([@"setLogEnabled" isEqualToString:call.method]){
             [UMCommonLogManager setUpUMCommonLogManager];
             BOOL logEnabled = [[args objectForKey:@"logEnabled"] boolValue];
