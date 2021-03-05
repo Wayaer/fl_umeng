@@ -1,3 +1,5 @@
+## [1.0.0]
+ * update flutter 2.0
 ## [0.0.6]
  * remove shell file
 ## [0.0.5]
