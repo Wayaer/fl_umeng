@@ -1,3 +1,6 @@
+## [1.1.0]
+ * Modify method name
+ * Perfect doc and example
 ## [1.0.0]
  * update flutter 2.0
 ## [0.0.6]

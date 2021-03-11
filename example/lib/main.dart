@@ -13,13 +13,9 @@ void main() {
   /// 是否开启log
   setUMLogEnabled(true);
   runApp(MaterialApp(
-    title: 'UMeng example',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-    ),
-    home: HomePage(),
-  ));
+      debugShowCheckedModeBanner: false,
+      title: 'UMeng example',
+      home: HomePage()));
 }
 
 class HomePage extends StatelessWidget {
@@ -27,6 +23,58 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('UMeng example')),
-        body: const Center(child: Text('UMeng 初始化完成')));
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+              ElevatedButton(
+                  onPressed: () {
+                    signInWithUM('userId');
+                  },
+                  child: const Text('设置用户账号')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    signOffWithUM();
+                  },
+                  child: const Text('取消用户账号')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    setPageCollectionModeManualWithUM();
+                  },
+                  child: const Text('开启页面统计')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    onPageStartWithUM('pageStart');
+                  },
+                  child: const Text('进入页面统计')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    onPageEndWithUM('pageEnd');
+                  },
+                  child: const Text('离开页面统计')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    setPageCollectionModeAutoWithUM();
+                  },
+                  child: const Text('关闭页面统计')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    onEventWithUM('test', <String, dynamic>{'test': 'test'});
+                  },
+                  child: const Text('发送自定义事件')),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    reportErrorWithUM('error');
+                  },
+                  child: const Text('错误发送')),
+              const SizedBox(height: 10),
+            ])));
   }
 }
