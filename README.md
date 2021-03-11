@@ -79,22 +79,22 @@ void main() {
 2.设置账号
 ```dart
 
-    /// 设置用户账号
+   /// 设置用户账号
 
-    signInWithUM('userID');
+   signInWithUM('userID');
 
 
-    /// 取消用户账号
+   /// 取消用户账号
 
-    signOffWithUM();
+   signOffWithUM();
 
 ```
 
 3.发送自定义事件
 ```dart
-    /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
+   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
 
-     onEventWithUM();
+   onEventWithUM();
 
 ```
 
@@ -121,7 +121,7 @@ void main() {
 
 
 ```
-5.
+5.错误发送
 ```dart
     /// 错误发送
 
