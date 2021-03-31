@@ -1,4 +1,4 @@
-## [1.1.0]
+## [1.1.1]
  * Modify method name
  * Perfect doc and example
 ## [1.0.0]
