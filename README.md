@@ -1,16 +1,14 @@
 ### 友盟统计 for Flutter
 
 ## android
-
-如果您的应用使用了代码混淆，请添加如下配置，以避免【友盟+】SDK被错误混淆导致SDK不可用。
-
+SDK需要引用导入工程的资源文件，通过了反射机制得到资源引用文件R.java，但是在开发者通过proguard等混淆/优化工具处理apk时，proguard可能会将R.java删除，如果遇到这个问题，请添加如下配置
 android/app 目录 添加
 ```
    proguard-rules.pro
 
 ```
 并在【proguard-rules.pro】 添加以下混淆内容
-```groovy
+```text
 
 -keep public class 您的应用包名.R$*{
    public static final int *;
@@ -69,8 +67,7 @@ void main() {
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
 
-  /// 是否开启log
-  setUMLogEnabled(true);
+  
   runApp(MaterialApp());
 }
 
@@ -78,53 +75,50 @@ void main() {
 
 2.设置账号
 ```dart
+  
+void fun(){
+    /// 是否开启log 仅支持 Android
+   setUMLogEnabled(true);
 
    /// 设置用户账号
-
    signInWithUM('userID');
 
 
    /// 取消用户账号
-
    signOffWithUM();
 
+}
 ```
 
 3.发送自定义事件
 ```dart
    /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
-
+void fun(){
    onEventWithUM();
-
+}
 ```
 
 4.使用页面统计
 ```dart
-
+void fun(){
    /// 如果需要使用页面统计，则先打开该设置
-
    setPageCollectionModeManualWithUM();
 
-
    /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
-
    setPageCollectionModeAutoWithUM();
 
-
    /// 进入页面统计 
-
    onPageStartWithUM();
 
    /// 离开页面统计
-
    onPageEndWithUM();
 
-
+}
 ```
 5.错误发送
 ```dart
-    /// 错误发送
-
+void fun(){
+    /// 错误发送  仅支持 Android
     reportErrorWithUM();
-
+}
 ```

@@ -17,8 +17,7 @@ A new Flutter plugin.
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
   s.dependency 'UMCCommon'
-  s.dependency 'UMCCommonLog'
- #s.dependency 'UMCAnalytics'
+  s.dependency 'UMDevice'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.static_framework = true
 end

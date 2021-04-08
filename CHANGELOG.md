@@ -1,3 +1,7 @@
+## [1.1.2]
+ * add doc 
+ * add return parameter
+ * update sdk version
 ## [1.1.1]
  * Modify method name
  * Perfect doc and example

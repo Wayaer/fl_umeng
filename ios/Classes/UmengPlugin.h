@@ -2,6 +2,4 @@
 
 @interface UmengPlugin : NSObject<FlutterPlugin>
 
-+(void) registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar;
-
 @end
