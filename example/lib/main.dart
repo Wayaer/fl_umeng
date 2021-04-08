@@ -5,19 +5,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// 注册友盟
-  // final bool? data = await initWithUM(
-  //     androidAppKey: '5f8fe2abfac90f1c19a8642e',
-  //     iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
-  //     channel: 'channel');
-
   final bool? data = await initWithUM(
-      androidAppKey: '60054f3af1eb4f3f9b63e471',
-      iosAppKey: '60054f6d6a2a470e8f7e6245',
-      channel: 'flutter');
+      androidAppKey: '5f8fe2abfac90f1c19a8642e',
+      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
+      channel: 'channel');
   print('Umeng 初始化成功 = $data');
 
-  /// 是否开启log
-  setUMLogEnabled(true);
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UMeng example',
