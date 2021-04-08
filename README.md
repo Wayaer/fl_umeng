@@ -66,7 +66,6 @@ void main() {
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
-
   
   runApp(MaterialApp());
 }
@@ -82,7 +81,6 @@ void fun(){
 
    /// 设置用户账号
    signInWithUM('userID');
-
 
    /// 取消用户账号
    signOffWithUM();
