@@ -1,3 +1,5 @@
+## [1.1.5]
+ * simplify Android proguard rules
 ## [1.1.3]
  * add doc 
  * add return parameter
