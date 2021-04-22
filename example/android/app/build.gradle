@@ -53,14 +53,18 @@ android {
 
     buildTypes {
         release {
-            zipAlignEnabled true
             minifyEnabled true
+            shrinkResources true
             signingConfig signingConfigs.release
+            consumerProguardFiles 'consumer-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-rules.pro'
         }
         debug {
-            zipAlignEnabled true
             minifyEnabled true
+            shrinkResources true
             signingConfig signingConfigs.release
+            consumerProguardFiles 'consumer-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-rules.pro'
         }
     }
 

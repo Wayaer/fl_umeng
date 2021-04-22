@@ -32,7 +32,7 @@ android {
     }
     defaultConfig {
         minSdkVersion 16
-        consumerProguardFiles 'proguard-rules.pro'
+        consumerProguardFiles 'consumer-rules.pro'
     }
     packagingOptions {
         merge 'AndroidManifest.xml'
