@@ -1,5 +1,4 @@
 #import "UmengPlugin.h"
-#import <UMCommonLog/UMCommonLogHeaders.h>
 #import <UMCommon/UMConfigure.h>
 #import <UMCommon/MobClick.h>
 
@@ -9,33 +8,42 @@
     FlutterMethodChannel* channel = [FlutterMethodChannel
                                      methodChannelWithName:@"UMeng"
                                      binaryMessenger:registrar.messenger];
-    [channel setMethodCallHandler:^(FlutterMethodCall *  call, FlutterResult  result) {
+    
+    [channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
         NSDictionary *args = call.arguments;
         if ([@"init" isEqualToString:call.method]){
-            [UMConfigure initWithAppkey:args[@"iosAppKey"] channel:args[@"channel"]];
-        }else if ([@"setLogEnabled" isEqualToString:call.method]){
-            [UMCommonLogManager setUpUMCommonLogManager];
-            BOOL logEnabled = [[args objectForKey:@"logEnabled"] boolValue];
-            [UMConfigure setLogEnabled:logEnabled];
-        }else if([@"onEvent" isEqualToString:call.method]){
+            [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
+            result([NSNumber numberWithBool:YES]);
+        }else  if([@"onEvent" isEqualToString:call.method]){
             [MobClick event:args[@"event"] attributes:args[@"properties"]];
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"onProfileSignIn" isEqualToString:call.method]){
-            [MobClick profileSignInWithPUID:args[@"userID"]];
+            NSString *provider = args[@"provider"];
+            if(provider){
+                [MobClick profileSignInWithPUID:args[@"userID"] provider:provider];
+            }else{
+                [MobClick profileSignInWithPUID:args[@"userID"]];
+            }
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"onProfileSignOff" isEqualToString:call.method]){
             [MobClick profileSignOff];
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"setPageCollectionModeAuto" isEqualToString:call.method]){
             [MobClick setAutoPageEnabled:YES];
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"setPageCollectionModeManual" isEqualToString:call.method]){
             [MobClick setAutoPageEnabled:NO];
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"onPageStart" isEqualToString:call.method]){
             [MobClick beginLogPageView:args[@"pageName"]];
+            result([NSNumber numberWithBool:YES]);
         }else if ([@"onPageEnd" isEqualToString:call.method]){
             [MobClick endLogPageView:args[@"pageName"]];
-        }else if ([@"reportError" isEqualToString:call.method]){
-            NSLog(@"reportError API not existed ");
-        }else{
+            result([NSNumber numberWithBool:YES]);
+        }else {
             result(FlutterMethodNotImplemented);
         }
     }];
+
 }
 @end

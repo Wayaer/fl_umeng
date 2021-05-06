@@ -17,26 +17,60 @@ class UmengPlugin : FlutterPlugin {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "init" -> {
-                    val androidAppKey = call.argument<String>("androidAppKey")
+                    val androidAppKey = call.argument<String>("appKey")
                     val channel = call.argument<String>("channel")
-                    UMConfigure.init(context, androidAppKey, channel, UMConfigure.DEVICE_TYPE_PHONE, null);
+                    UMConfigure.init(context, androidAppKey, channel, UMConfigure.DEVICE_TYPE_PHONE, null)
+                    result.success(true)
                 }
                 "onEvent" -> {
                     val event = call.argument<String>("event")
                     val map = call.argument<Map<String, *>>("properties")
                     MobclickAgent.onEventObject(context, event, map)
+                    result.success(true)
                 }
                 "setLogEnabled" -> {
                     val logEnabled = call.argument<Boolean>("logEnabled")
-                    if (logEnabled != null) UMConfigure.setLogEnabled(logEnabled)
+                    if (logEnabled != null) {
+                        UMConfigure.setLogEnabled(logEnabled)
+                        result.success(true)
+                    } else {
+                        result.success(false)
+                    }
                 }
-                "onProfileSignIn" -> MobclickAgent.onProfileSignIn(call.argument("userID"))
-                "onProfileSignOff" -> MobclickAgent.onProfileSignOff()
-                "setPageCollectionModeAuto" -> MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
-                "setPageCollectionModeManual" -> MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL)
-                "onPageStart" -> MobclickAgent.onPageStart(call.argument("pageName"))
-                "onPageEnd" -> MobclickAgent.onPageEnd(call.argument("pageName"))
-                "reportError" -> MobclickAgent.reportError(context, call.argument<String>("error"))
+                "onProfileSignIn" -> {
+                    val provider = call.argument<String?>("provider")
+                    val userID = call.argument<String>("userID")
+                    if (provider != null) {
+                        MobclickAgent.onProfileSignIn(userID, provider)
+                    } else {
+                        MobclickAgent.onProfileSignIn(userID)
+                    }
+                    result.success(true)
+                }
+                "onProfileSignOff" -> {
+                    MobclickAgent.onProfileSignOff()
+                    result.success(true)
+                }
+                "setPageCollectionModeAuto" -> {
+                    MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
+                    result.success(true)
+                }
+                "setPageCollectionModeManual" -> {
+                    MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL)
+                    result.success(true)
+                }
+                "onPageStart" -> {
+                    MobclickAgent.onPageStart(call.argument("pageName"))
+                    result.success(true)
+                }
+                "onPageEnd" -> {
+                    MobclickAgent.onPageEnd(call.argument("pageName"))
+                    result.success(true)
+                }
+                "reportError" -> {
+                    MobclickAgent.reportError(context, call.argument<String>("error"))
+                    result.success(true)
+                }
                 else -> result.notImplemented()
             }
 

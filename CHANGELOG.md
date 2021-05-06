@@ -1,3 +1,14 @@
+## [1.1.5]
+ * simplify Android proguard rules
+## [1.1.3]
+ * add doc 
+ * add return parameter
+ * update sdk version
+## [1.1.1]
+ * Modify method name
+ * Perfect doc and example
+## [1.0.0]
+ * update flutter 2.0
 ## [0.0.6]
  * remove shell file
 ## [0.0.5]
