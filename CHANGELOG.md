@@ -1,3 +1,5 @@
+## [1.1.6]
+ * Update umeng new branch build.gradle
 ## [1.1.5]
  * simplify Android proguard rules
 ## [1.1.3]
