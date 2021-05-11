@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="flutter.umeng">
 
-    <uses-sdk android:minSdkVersion="16"
-        tools:ignore="GradleOverrides" />
+    <uses-sdk tools:ignore="GradleOverrides" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>

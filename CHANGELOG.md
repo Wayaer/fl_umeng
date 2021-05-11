@@ -1,3 +1,7 @@
+## [1.1.7]
+ * update Android com.android.tools.build:gradle version
+ * remove AndroidManifest.xml minSdkVersion
+ * replace jcenter() to mavenCentral()
 ## [1.1.6]
  * Update umeng new branch build.gradle
 ## [1.1.5]
