@@ -1,3 +1,6 @@
+## [1.1.8]
+ * modify the return parameter to be non null
+ * update Android version
 ## [1.1.7]
  * update Android com.android.tools.build:gradle version
  * remove AndroidManifest.xml minSdkVersion

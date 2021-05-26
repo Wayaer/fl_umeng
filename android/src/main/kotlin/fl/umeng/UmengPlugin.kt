@@ -1,4 +1,4 @@
-package flutter.umeng
+package fl.umeng
 
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
@@ -73,10 +73,7 @@ class UmengPlugin : FlutterPlugin {
                 }
                 else -> result.notImplemented()
             }
-
         }
-
-
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {

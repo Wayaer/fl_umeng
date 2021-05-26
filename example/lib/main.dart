@@ -44,21 +44,21 @@ class _HomePageState extends State<_HomePage> {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await signInWithUM('userId');
+                          final bool data = await signInWithUM('userId');
                           text = 'signInWithUM  $data';
                           setState(() {});
                         },
                         child: const Text('signOffWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await signOffWithUM();
+                          final bool data = await signOffWithUM();
                           text = 'signOffWithUM  $data';
                           setState(() {});
                         },
                         child: const Text('signOffWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data =
+                          final bool data =
                               await setPageCollectionModeManualWithUM();
                           text = 'setPageCollectionModeManualWithUM  $data';
                           setState(() {});
@@ -66,7 +66,7 @@ class _HomePageState extends State<_HomePage> {
                         child: const Text('setPageCollectionModeManualWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data =
+                          final bool data =
                               await onPageStartWithUM('pageStart');
                           text = 'onPageStartWithUM  $data';
                           setState(() {});
@@ -74,14 +74,14 @@ class _HomePageState extends State<_HomePage> {
                         child: const Text('onPageStartWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await onPageEndWithUM('pageEnd');
+                          final bool data = await onPageEndWithUM('pageEnd');
                           text = 'onPageEndWithUM  $data';
                           setState(() {});
                         },
                         child: const Text('onPageEndWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data =
+                          final bool data =
                               await setPageCollectionModeAutoWithUM();
                           text = 'setPageCollectionModeAutoWithUM  $data';
                           setState(() {});
@@ -89,7 +89,7 @@ class _HomePageState extends State<_HomePage> {
                         child: const Text('setPageCollectionModeAutoWithUM')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await onEventWithUM(
+                          final bool data = await onEventWithUM(
                               'test', <String, String>{'test': 'test'});
                           text = 'onEventWithUM  $data';
                           setState(() {});
@@ -105,14 +105,14 @@ class _HomePageState extends State<_HomePage> {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await setUMLogEnabled(true);
+                          final bool data = await setUMLogEnabled(true);
                           text = 'LogEnabled  $data';
                           setState(() {});
                         },
                         child: const Text('LogEnabled')),
                     ElevatedButton(
                         onPressed: () async {
-                          final bool? data = await reportErrorWithUM(
+                          final bool data = await reportErrorWithUM(
                               <String, String>{'error': 'error'});
                           text = 'reportErrorWithUM  $data';
                           setState(() {});
