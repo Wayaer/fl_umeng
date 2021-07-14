@@ -1,3 +1,6 @@
+## [1.1.9]
+ * upgrade Android Umeng SDK version
+ * add platform restrictions
 ## [1.1.8]
  * modify the return parameter to be non null
  * update Android version

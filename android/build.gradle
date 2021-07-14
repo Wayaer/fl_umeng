@@ -5,12 +5,12 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10'
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21'
     }
 }
 
@@ -18,7 +18,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 
@@ -44,8 +44,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.umeng.umsdk:common:9.3.8'
-    implementation 'com.umeng.umsdk:asms:1.2.2'
+    implementation 'com.umeng.umsdk:common:9.4.0'
+    implementation 'com.umeng.umsdk:asms:1.2.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
 }
 
 repositories {

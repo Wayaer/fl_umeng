@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 const MethodChannel _channel = MethodChannel('UMeng');
@@ -9,10 +8,10 @@ Future<bool> initWithUM(
     {required String androidAppKey,
     required String iosAppKey,
     String channel = ''}) async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state = await _channel.invokeMethod<bool?>(
       'init', <String, String?>{
-    'appKey': Platform.isAndroid ? androidAppKey : iosAppKey,
+    'appKey': _isAndroid ? androidAppKey : iosAppKey,
     'channel': channel
   });
   return state ?? false;
@@ -21,7 +20,7 @@ Future<bool> initWithUM(
 /// 设置用户账号
 /// provider 账号来源。不能以下划线"_"开头，使用大写字母和数字标识，长度小于32 字节
 Future<bool> signInWithUM(String userID, {String? provider}) async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final Map<String, String> map = <String, String>{'userID': userID};
   if (provider != null) map['provider'] = provider;
   final bool? state =
@@ -31,7 +30,7 @@ Future<bool> signInWithUM(String userID, {String? provider}) async {
 
 /// 取消用户账号
 Future<bool> signOffWithUM() async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state = await _channel.invokeMethod<bool?>('onProfileSignOff');
   return state ?? false;
 }
@@ -39,7 +38,7 @@ Future<bool> signOffWithUM() async {
 /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
 Future<bool> onEventWithUM(
     String event, Map<String, dynamic> properties) async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state = await _channel.invokeMethod<bool?>(
       'onEvent', <String, dynamic>{'event': event, 'properties': properties});
   return state ?? false;
@@ -47,7 +46,7 @@ Future<bool> onEventWithUM(
 
 /// 如果需要使用页面统计，则先打开该设置
 Future<bool> setPageCollectionModeManualWithUM() async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state =
       await _channel.invokeMethod<bool?>('setPageCollectionModeManual');
   return state ?? false;
@@ -55,7 +54,7 @@ Future<bool> setPageCollectionModeManualWithUM() async {
 
 /// 进入页面统计
 Future<bool> onPageStartWithUM(String pageName) async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state = await _channel.invokeMethod<bool?>(
       'onPageStart', <String, String>{'pageName': pageName});
   return state ?? false;
@@ -63,7 +62,7 @@ Future<bool> onPageStartWithUM(String pageName) async {
 
 /// 离开页面统计
 Future<bool> onPageEndWithUM(String pageName) async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state = await _channel
       .invokeMethod<bool?>('onPageEnd', <String, String>{'pageName': pageName});
   return state ?? false;
@@ -71,7 +70,7 @@ Future<bool> onPageEndWithUM(String pageName) async {
 
 /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
 Future<bool> setPageCollectionModeAutoWithUM() async {
-  if (_supportPlatform()) return false;
+  if (!_supportPlatform) return false;
   final bool? state =
       await _channel.invokeMethod<bool?>('setPageCollectionModeAuto');
   return state ?? false;
@@ -80,7 +79,7 @@ Future<bool> setPageCollectionModeAutoWithUM() async {
 /// 是否开启日志
 /// 仅支持android
 Future<bool> setUMLogEnabled(bool logEnabled) async {
-  if (!Platform.isAndroid) return false;
+  if (!_isAndroid) return false;
   final bool? state = await _channel.invokeMethod<bool?>(
       'setLogEnabled', <String, bool>{'logEnabled': logEnabled});
   return state ?? false;
@@ -89,15 +88,17 @@ Future<bool> setUMLogEnabled(bool logEnabled) async {
 /// 错误上报
 /// 仅支持android
 Future<bool> reportErrorWithUM(Map<String, String> error) async {
-  if (!Platform.isAndroid) return false;
+  if (!_isAndroid) return false;
   final bool? state = await _channel.invokeMethod<bool?>('reportError', error);
   return state ?? false;
 }
 
-bool _supportPlatform() {
-  if (!(Platform.isAndroid || Platform.isIOS)) {
-    print('fl_umeng is not support ${Platform.operatingSystem}');
-    return true;
-  }
+bool get _supportPlatform {
+  if (!kIsWeb && (_isAndroid || _isIOS)) return true;
+  print('Not support platform for $defaultTargetPlatform');
   return false;
 }
+
+bool get _isAndroid => defaultTargetPlatform == TargetPlatform.android;
+
+bool get _isIOS => defaultTargetPlatform == TargetPlatform.iOS;
