@@ -1,3 +1,6 @@
+## [2.0.0]
+ * add Singleton Pattern
+ * upgrade Android Gradle
 ## [1.1.9]
  * upgrade Android Umeng SDK version
  * add platform restrictions

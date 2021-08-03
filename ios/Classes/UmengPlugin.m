@@ -10,14 +10,17 @@
                                      binaryMessenger:registrar.messenger];
     
     [channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-        NSDictionary *args = call.arguments;
+        
         if ([@"init" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
         }else  if([@"onEvent" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
             [MobClick event:args[@"event"] attributes:args[@"properties"]];
             result(@(YES));
         }else if ([@"onProfileSignIn" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
             NSString *provider = args[@"provider"];
             if(provider){
                 [MobClick profileSignInWithPUID:args[@"userID"] provider:provider];
@@ -35,10 +38,10 @@
             [MobClick setAutoPageEnabled:NO];
             result(@(YES));
         }else if ([@"onPageStart" isEqualToString:call.method]){
-            [MobClick beginLogPageView:args[@"pageName"]];
+            [MobClick beginLogPageView:call.arguments];
             result(@(YES));
         }else if ([@"onPageEnd" isEqualToString:call.method]){
-            [MobClick endLogPageView:args[@"pageName"]];
+            [MobClick endLogPageView:call.arguments];
             result(@(YES));
         }else {
             result(FlutterMethodNotImplemented);

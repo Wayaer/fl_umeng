@@ -1,5 +1,74 @@
 ### 友盟统计 for Flutter
 
+## 开始使用
+
+- 注册友盟
+
+```dart
+
+void main() {
+
+  /// 注册友盟
+  FlUMeng.instance.init(
+      androidAppKey: '5f8fe2abfac90f1c19a8642e',
+      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
+      channel: 'channel');
+  
+  runApp(MaterialApp());
+}
+
+```
+
+- 设置账号
+```dart
+  
+void fun(){
+    /// 是否开启log 仅支持 Android
+  FlUMeng.instance.setLogEnabled(true);
+
+   /// 设置用户账号
+  FlUMeng.instance.signIn('userID');
+
+   /// 取消用户账号
+  FlUMeng.instance.signOff();
+
+}
+```
+
+- 发送自定义事件
+```dart
+   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
+void fun(){
+  FlUMeng.instance.onEvent();
+}
+```
+
+- 使用页面统计
+```dart
+void fun(){
+   /// 如果需要使用页面统计，则先打开该设置
+  FlUMeng.instance.setPageCollectionModeManual();
+
+   /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
+  FlUMeng.instance.setPageCollectionModeAuto();
+
+   /// 进入页面统计 
+  FlUMeng.instance.onPageStart();
+
+   /// 离开页面统计
+  FlUMeng.instance.onPageEnd();
+
+}
+```
+- 错误发送
+```dart
+void fun(){
+    /// 错误发送  仅支持 Android
+  FlUMeng.instance.reportError();
+}
+```
+
+
 ## android 如遇到 Duplicate class com.google.common.util.concurrent.ListenableFuture的错误
 
 ```shell script
@@ -19,72 +88,4 @@ configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
-```
-
-## 开始使用
-
-- 注册友盟
-
-```dart
-
-void main() {
-
-  /// 注册友盟
-  initWithUM(
-      androidAppKey: '5f8fe2abfac90f1c19a8642e',
-      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
-      channel: 'channel');
-  
-  runApp(MaterialApp());
-}
-
-```
-
-- 设置账号
-```dart
-  
-void fun(){
-    /// 是否开启log 仅支持 Android
-   setUMLogEnabled(true);
-
-   /// 设置用户账号
-   signInWithUM('userID');
-
-   /// 取消用户账号
-   signOffWithUM();
-
-}
-```
-
-- 发送自定义事件
-```dart
-   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
-void fun(){
-   onEventWithUM();
-}
-```
-
-- 使用页面统计
-```dart
-void fun(){
-   /// 如果需要使用页面统计，则先打开该设置
-   setPageCollectionModeManualWithUM();
-
-   /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
-   setPageCollectionModeAutoWithUM();
-
-   /// 进入页面统计 
-   onPageStartWithUM();
-
-   /// 离开页面统计
-   onPageEndWithUM();
-
-}
-```
-- 错误发送
-```dart
-void fun(){
-    /// 错误发送  仅支持 Android
-    reportErrorWithUM();
-}
 ```

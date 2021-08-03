@@ -29,13 +29,8 @@ class UmengPlugin : FlutterPlugin {
                     result.success(true)
                 }
                 "setLogEnabled" -> {
-                    val logEnabled = call.argument<Boolean>("logEnabled")
-                    if (logEnabled != null) {
-                        UMConfigure.setLogEnabled(logEnabled)
-                        result.success(true)
-                    } else {
-                        result.success(false)
-                    }
+                    UMConfigure.setLogEnabled(call.arguments as Boolean)
+                    result.success(true)
                 }
                 "onProfileSignIn" -> {
                     val provider = call.argument<String?>("provider")
@@ -60,15 +55,15 @@ class UmengPlugin : FlutterPlugin {
                     result.success(true)
                 }
                 "onPageStart" -> {
-                    MobclickAgent.onPageStart(call.argument("pageName"))
+                    MobclickAgent.onPageStart(call.arguments as String)
                     result.success(true)
                 }
                 "onPageEnd" -> {
-                    MobclickAgent.onPageEnd(call.argument("pageName"))
+                    MobclickAgent.onPageEnd(call.arguments as String)
                     result.success(true)
                 }
                 "reportError" -> {
-                    MobclickAgent.reportError(context, call.argument<String>("error"))
+                    MobclickAgent.reportError(context, call.arguments as String)
                     result.success(true)
                 }
                 else -> result.notImplemented()
