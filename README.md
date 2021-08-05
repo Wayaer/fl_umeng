@@ -6,7 +6,7 @@
 
 ```dart
 
-void main() {
+void initState() {
 
   /// 注册友盟
   FlUMeng.instance.init(
