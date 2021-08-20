@@ -34,6 +34,13 @@ class FlUMeng {
     return state ?? false;
   }
 
+  /// android 退出app 时 保存统计数据
+  Future<bool> onKillProcess(String key, String type) async {
+    if (!_isAndroid) return false;
+    final bool? state = await _channel.invokeMethod<bool?>('onKillProcess');
+    return state ?? false;
+  }
+
   /// 设置用户账号
   /// provider 账号来源。不能以下划线"_"开头，使用大写字母和数字标识，长度小于32 字节
   Future<bool> signIn(String userID, {String? provider}) async {

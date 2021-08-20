@@ -73,8 +73,10 @@ class UMengPlugin : FlutterPlugin {
                     MobclickAgent.reportError(context, call.arguments as String)
                     result.success(true)
                 }
-                "onKillProcess" ->
+                "onKillProcess" -> {
                     MobclickAgent.onKillProcess(context)
+                    result.success(true)
+                }
                 "setAppVersion" -> {
                     UMCrash.setAppVersion(
                         call.argument("version"),
