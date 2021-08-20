@@ -16,6 +16,6 @@ flutter:
     platforms:
       android:
         package: fl.umeng
-        pluginClass: UmengPlugin
+        pluginClass: UMengPlugin
       ios:
-        pluginClass: UmengPlugin
+        pluginClass: UMengPlugin

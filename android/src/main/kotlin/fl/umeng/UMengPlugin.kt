@@ -1,13 +1,15 @@
 package fl.umeng
 
+import android.os.Bundle
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
+import com.umeng.umcrash.UMCrash
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.MethodChannel
 
 
-class UmengPlugin : FlutterPlugin {
+class UMengPlugin : FlutterPlugin {
 
     private lateinit var channel: MethodChannel
 
@@ -17,9 +19,14 @@ class UmengPlugin : FlutterPlugin {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "init" -> {
-                    val androidAppKey = call.argument<String>("appKey")
+                    val key = call.argument<String>("appKey")
                     val channel = call.argument<String>("channel")
-                    UMConfigure.init(context, androidAppKey, channel, UMConfigure.DEVICE_TYPE_PHONE, null)
+                    val preInit = call.argument<Boolean>("preInit")
+                    if (preInit == true) {
+                        UMConfigure.preInit(context, key, channel)
+                    } else {
+                        UMConfigure.init(context, key, channel, UMConfigure.DEVICE_TYPE_PHONE, null)
+                    }
                     result.success(true)
                 }
                 "onEvent" -> {
@@ -64,6 +71,34 @@ class UmengPlugin : FlutterPlugin {
                 }
                 "reportError" -> {
                     MobclickAgent.reportError(context, call.arguments as String)
+                    result.success(true)
+                }
+                "onKillProcess" ->
+                    MobclickAgent.onKillProcess(context)
+                "setAppVersion" -> {
+                    UMCrash.setAppVersion(
+                        call.argument("version"),
+                        call.argument("subVersion"),
+                        call.argument("buildId")
+                    )
+                    result.success(true)
+                }
+                "initCrash" -> {
+                    val bundle = Bundle()
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_JAVA, call.argument<Boolean>("enableJava") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_NATIVE, call.argument<Boolean>("enableNative") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_UNEXP, call.argument<Boolean>("enableUnExp") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_ANR, call.argument<Boolean>("enableAnr") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_PA, call.argument<Boolean>("enablePa") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_LAUNCH, call.argument<Boolean>("enableLaunch") == true)
+                    bundle.putBoolean(UMCrash.KEY_ENABLE_MEM, call.argument<Boolean>("enableMEM") == true)
+                    val key = call.argument<String>("appKey")
+                    val channel = call.argument<String>("channel")
+                    UMCrash.initConfig(bundle)
+                    UMCrash.init(context, key, channel)
+                }
+                "customLog" -> {
+                    UMCrash.generateCustomLog(call.argument<String>("key"), "type")
                     result.success(true)
                 }
                 else -> result.notImplemented()

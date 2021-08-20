@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+const MethodChannel _channel = MethodChannel('UMeng');
+
 class FlUMeng {
   factory FlUMeng() => _getInstance();
 
@@ -15,18 +17,19 @@ class FlUMeng {
     return _instance!;
   }
 
-  final MethodChannel _channel = const MethodChannel('UMeng');
-
   /// 初始化
+  /// [preInit] 是否预加载 仅支持android
   Future<bool> init(
       {required String androidAppKey,
       required String iosAppKey,
+      bool preInit = false,
       String channel = ''}) async {
     if (!_supportPlatform) return false;
-    final bool? state = await _channel.invokeMethod<bool?>(
-        'init', <String, String?>{
+    final bool? state =
+        await _channel.invokeMethod<bool?>('init', <String, dynamic>{
       'appKey': _isAndroid ? androidAppKey : iosAppKey,
-      'channel': channel
+      'channel': channel,
+      'preInit': preInit
     });
     return state ?? false;
   }
@@ -106,14 +109,123 @@ class FlUMeng {
         await _channel.invokeMethod<bool?>('reportError', error);
     return state ?? false;
   }
+}
 
-  bool get _supportPlatform {
-    if (!kIsWeb && (_isAndroid || _isIOS)) return true;
-    print('Not support platform for $defaultTargetPlatform');
-    return false;
+class FlUMengCrash {
+  factory FlUMengCrash() => _getInstance();
+
+  FlUMengCrash._internal();
+
+  static FlUMengCrash get instance => _getInstance();
+
+  static FlUMengCrash? _instance;
+
+  static FlUMengCrash _getInstance() {
+    _instance ??= FlUMengCrash._internal();
+    return _instance!;
   }
 
-  bool get _isAndroid => defaultTargetPlatform == TargetPlatform.android;
+  /// 设置app 版本
+  Future<bool> setAppVersion(
+      String version, String subVersion, String buildId) async {
+    if (!_supportPlatform) return false;
+    final bool? state =
+        await _channel.invokeMethod<bool?>('setAppVersion', <String, dynamic>{
+      'version': version,
+      'subVersion': subVersion,
+      'buildId': buildId,
+    });
+    return state ?? false;
+  }
 
-  bool get _isIOS => defaultTargetPlatform == TargetPlatform.iOS;
+  /// 初始化
+  Future<bool> init(
+      {required String androidAppKey,
+      required String iosAppKey,
+      String channel = '',
+      CrashMode? crashMode}) async {
+    if (!_supportPlatform) return false;
+    crashMode ??= CrashMode();
+    final Map<String, dynamic> map = <String, dynamic>{
+      'appKey': _isAndroid ? androidAppKey : iosAppKey,
+      'channel': channel
+    };
+    map.addAll(crashMode.toMap());
+    final bool? state = await _channel.invokeMethod<bool?>('initCrash', map);
+    return state ?? false;
+  }
+
+  /// 自定义log
+  Future<bool> customLog(String key, String type) async {
+    if (!_supportPlatform) return false;
+    final bool? state = await _channel.invokeMethod<bool?>(
+        'customLog', <String, dynamic>{'key': key, 'type': type});
+    return state ?? false;
+  }
 }
+
+class CrashMode {
+  CrashMode({
+    this.enableUnExp = false,
+    this.enableLaunch = true,
+    this.enableMEM = true,
+    this.enableJava = true,
+    this.enableNative = true,
+    this.enablePa = true,
+    this.enableAnr = true,
+    this.enableCrashAndBlock = true,
+    this.enableOOM = true,
+  });
+
+  /// Android and IOS
+  /// 一级开关优先级高于二级开关，如果一级和二级同时设置则以一级为准，目前仅崩溃类型有二级开关。
+  /// 用于关闭启动捕获，默认为true可设置为false进行关闭 一级
+  late bool enableLaunch;
+
+  /// 用于关闭内存占用捕获，默认为true可设置为false进行关闭 一级
+  late bool enableMEM;
+
+  /// Android only
+  ///
+  /// 用于关闭java crash捕获，默认为true可设置为false进行关闭 二级
+  late bool enableJava;
+
+  /// 用于关闭native crash捕获，默认为true可设置为false进行关闭 二级
+  late bool enableNative;
+
+  /// 用于关闭java和native crash捕获，默认为false可设置为true进行关闭 一级
+  late bool enableUnExp;
+
+  /// 用于关闭ANR捕获，默认为true可设置为false进行关闭 一级
+  late bool enableAnr;
+
+  /// 用于关闭卡顿捕获，默认为true可设置为false进行关闭 一级
+  late bool enablePa;
+
+  ///  IOS only
+  ///
+  late bool enableCrashAndBlock;
+  late bool enableOOM;
+
+  Map<String, bool> toMap() => <String, bool>{
+        'enableLaunch': enableLaunch,
+        'enableMEM': enableMEM,
+        'enableJava': enableJava,
+        'enableNative': enableNative,
+        'enableUnExp': enableUnExp,
+        'enableAnr': enableAnr,
+        'enablePa': enablePa,
+        'enableCrashAndBlock': enableCrashAndBlock,
+        'enableOOM': enableOOM,
+      };
+}
+
+bool get _supportPlatform {
+  if (!kIsWeb && (_isAndroid || _isIOS)) return true;
+  print('Not support platform for $defaultTargetPlatform');
+  return false;
+}
+
+bool get _isAndroid => defaultTargetPlatform == TargetPlatform.android;
+
+bool get _isIOS => defaultTargetPlatform == TargetPlatform.iOS;

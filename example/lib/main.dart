@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'UMeng example',
+      title: 'UMeng Example',
       home: Scaffold(
-          appBar: AppBar(title: const Text('UMeng example')),
+          appBar: AppBar(title: const Text('UMeng Example')),
           body: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -29,6 +29,12 @@ class _HomePageState extends State<_HomePage> {
 
   /// 注册友盟
   Future<void> init() async {
+    final bool? crash = await FlUMengCrash.instance.init(
+        androidAppKey: '5f8fe2abfac90f1c19a8642e',
+        iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
+        channel: 'channel');
+    print('UmengCrash 初始化成功 = $crash');
+
     final bool? data = await FlUMeng.instance.init(
         androidAppKey: '5f8fe2abfac90f1c19a8642e',
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',

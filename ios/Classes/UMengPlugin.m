@@ -1,8 +1,8 @@
-#import "UmengPlugin.h"
+#import "UMengPlugin.h"
 #import <UMCommon/UMConfigure.h>
 #import <UMCommon/MobClick.h>
 
-@implementation UmengPlugin
+@implementation UMengPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel

@@ -6,15 +6,19 @@
 
 ```dart
 
-void initState() {
-
-  /// 注册友盟
-  FlUMeng.instance.init(
+Future<void> initState() async {
+  /// 注册友盟 性能检测
+  final bool? crash = await FlUMengCrash.instance.init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
-  
-  runApp(MaterialApp());
+  print('UmengCrash 初始化成功 = $crash');
+  /// 注册友盟 统计
+  final bool? data = await FlUMeng.instance.init(
+      androidAppKey: '5f8fe2abfac90f1c19a8642e',
+      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
+      channel: 'channel');
+  print('Umeng 初始化成功 = $data');
 }
 
 ```
