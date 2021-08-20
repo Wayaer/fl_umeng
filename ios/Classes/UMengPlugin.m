@@ -1,6 +1,7 @@
 #import "UMengPlugin.h"
 #import <UMCommon/UMConfigure.h>
 #import <UMCommon/MobClick.h>
+#import <UMAPM/UMAPMConfig.h>
 
 @implementation UMengPlugin
 
@@ -43,7 +44,27 @@
         }else if ([@"onPageEnd" isEqualToString:call.method]){
             [MobClick endLogPageView:call.arguments];
             result(@(YES));
-        }else {
+        }else if ([@"setAppVersion" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
+            [UMCrashConfigure setAppVersion:args[@"version"] buildVersion:args[@"buildId"]];
+            result(@(YES));
+        }else if ([@"initCrash" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
+            UMAPMConfig* config = [UMAPMConfig defaultConfig];
+            config.crashAndBlockMonitorEnable = args[@"enableCrashAndBlock"];
+            config.launchMonitorEnable = args[@"enableLaunch"];
+            config.memMonitorEnable = args[@"enableMEM"];
+            config.oomMonitorEnable = args[@"enableOOM"];
+            [UMCrashConfigure setAPMConfig:config];
+            [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
+            result(@(YES));
+        }else if ([@"customLog" isEqualToString:call.method]){
+            result(@(YES));
+        }else if ([@"setLogEnabled" isEqualToString:call.method]){
+            NSDictionary *args = call.arguments;
+            [UMConfigure setLogEnabled:args[@"enableLog"]]
+            result(@(YES));
+        }else{
             result(FlutterMethodNotImplemented);
         }
     }];

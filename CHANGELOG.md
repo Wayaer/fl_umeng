@@ -1,6 +1,6 @@
 ## [2.1.0]
- * modify UMCCommon to UMCommon in IOS , remove UMAPM
- * upgrade the SDK version of Android and IOS
+ * add UMAPM
+ * add Crash API
 ## [2.0.0]
  * add Singleton Pattern
  * upgrade Android Gradle

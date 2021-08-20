@@ -126,6 +126,8 @@ class FlUMengCrash {
   }
 
   /// 设置app 版本
+  /// [version] 1.0.01
+  /// [buildId] 1
   Future<bool> setAppVersion(
       String version, String subVersion, String buildId) async {
     if (!_supportPlatform) return false;
@@ -155,9 +157,9 @@ class FlUMengCrash {
     return state ?? false;
   }
 
-  /// 自定义log
+  /// 自定义log only Android
   Future<bool> customLog(String key, String type) async {
-    if (!_supportPlatform) return false;
+    if (!_isAndroid) return false;
     final bool? state = await _channel.invokeMethod<bool?>(
         'customLog', <String, dynamic>{'key': key, 'type': type});
     return state ?? false;
