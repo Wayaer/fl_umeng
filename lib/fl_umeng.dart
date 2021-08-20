@@ -93,11 +93,10 @@ class FlUMeng {
   }
 
   /// 是否开启日志
-  /// 仅支持android
-  Future<bool> setLogEnabled(bool logEnabled) async {
+  Future<bool> setLogEnabled(bool enabled) async {
     if (!_isAndroid) return false;
     final bool? state =
-        await _channel.invokeMethod<bool?>('setLogEnabled', logEnabled);
+        await _channel.invokeMethod<bool?>('setLogEnabled', enabled);
     return state ?? false;
   }
 
@@ -109,26 +108,11 @@ class FlUMeng {
         await _channel.invokeMethod<bool?>('reportError', error);
     return state ?? false;
   }
-}
-
-class FlUMengCrash {
-  factory FlUMengCrash() => _getInstance();
-
-  FlUMengCrash._internal();
-
-  static FlUMengCrash get instance => _getInstance();
-
-  static FlUMengCrash? _instance;
-
-  static FlUMengCrash _getInstance() {
-    _instance ??= FlUMengCrash._internal();
-    return _instance!;
-  }
 
   /// 设置app 版本
   /// [version] 1.0.01
   /// [buildId] 1
-  Future<bool> setAppVersion(
+  Future<bool> setAppVersionWithCrash(
       String version, String subVersion, String buildId) async {
     if (!_supportPlatform) return false;
     final bool? state =
@@ -140,25 +124,17 @@ class FlUMengCrash {
     return state ?? false;
   }
 
-  /// 初始化
-  Future<bool> init(
-      {required String androidAppKey,
-      required String iosAppKey,
-      String channel = '',
-      CrashMode? crashMode}) async {
+  /// 初始化 Crash
+  Future<bool> setConfigWithCrash({CrashMode? crashMode}) async {
     if (!_supportPlatform) return false;
     crashMode ??= CrashMode();
-    final Map<String, dynamic> map = <String, dynamic>{
-      'appKey': _isAndroid ? androidAppKey : iosAppKey,
-      'channel': channel
-    };
-    map.addAll(crashMode.toMap());
-    final bool? state = await _channel.invokeMethod<bool?>('initCrash', map);
+    final bool? state =
+        await _channel.invokeMethod<bool?>('setCrashConfig', crashMode.toMap());
     return state ?? false;
   }
 
   /// 自定义log only Android
-  Future<bool> customLog(String key, String type) async {
+  Future<bool> setCustomLogWithCrash(String key, String type) async {
     if (!_isAndroid) return false;
     final bool? state = await _channel.invokeMethod<bool?>(
         'customLog', <String, dynamic>{'key': key, 'type': type});

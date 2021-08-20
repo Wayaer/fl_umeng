@@ -18,7 +18,8 @@ A new Flutter plugin.
   s.dependency 'UMCommon'
   s.dependency 'UMDevice'
   s.dependency 'UMAPM'
-  s.frameworks = 'CoreTelephony','libz','libc++','libsqlite','SystemConfiguration'
+  s.frameworks = 'CoreTelephony','SystemConfiguration'
+  s.libraries = 'z','sqlite3','c++'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.static_framework = true
 end

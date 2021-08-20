@@ -83,7 +83,7 @@ class UMengPlugin : FlutterPlugin {
                     )
                     result.success(true)
                 }
-                "initCrash" -> {
+                "setCrashConfig" -> {
                     val bundle = Bundle()
                     bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_JAVA, call.argument<Boolean>("enableJava") == true)
                     bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_NATIVE, call.argument<Boolean>("enableNative") == true)
@@ -92,10 +92,7 @@ class UMengPlugin : FlutterPlugin {
                     bundle.putBoolean(UMCrash.KEY_ENABLE_PA, call.argument<Boolean>("enablePa") == true)
                     bundle.putBoolean(UMCrash.KEY_ENABLE_LAUNCH, call.argument<Boolean>("enableLaunch") == true)
                     bundle.putBoolean(UMCrash.KEY_ENABLE_MEM, call.argument<Boolean>("enableMEM") == true)
-                    val key = call.argument<String>("appKey")
-                    val channel = call.argument<String>("channel")
                     UMCrash.initConfig(bundle)
-                    UMCrash.init(context, key, channel)
                 }
                 "customLog" -> {
                     UMCrash.generateCustomLog(call.argument<String>("key"), "type")

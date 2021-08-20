@@ -29,10 +29,7 @@ class _HomePageState extends State<_HomePage> {
 
   /// 注册友盟
   Future<void> init() async {
-    final bool? crash = await FlUMengCrash.instance.init(
-        androidAppKey: '5f8fe2abfac90f1c19a8642e',
-        iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
-        channel: 'channel');
+    final bool? crash = await FlUMeng.instance.setConfigWithCrash();
     print('UmengCrash 初始化成功 = $crash');
 
     final bool? data = await FlUMeng.instance.init(
@@ -40,6 +37,7 @@ class _HomePageState extends State<_HomePage> {
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
         channel: 'channel');
     print('Umeng 初始化成功 = $data');
+    await FlUMeng.instance.setConfigWithCrash();
   }
 
   @override
@@ -106,6 +104,13 @@ class _HomePageState extends State<_HomePage> {
                   setState(() {});
                 },
                 child: const Text('onEvent')),
+            ElevatedButton(
+                onPressed: () async {
+                  final bool data = await FlUMeng.instance.setLogEnabled(true);
+                  text = 'logEnabled  $data';
+                  setState(() {});
+                },
+                child: const Text('logEnabled')),
           ]),
       const Padding(padding: EdgeInsets.all(15), child: Text('仅支持 Android')),
       Wrap(
@@ -115,11 +120,12 @@ class _HomePageState extends State<_HomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.setLogEnabled(true);
-                  text = 'logEnabled  $data';
+                  final bool data = await FlUMeng.instance
+                      .setCustomLogWithCrash('key', 'type');
+                  text = 'setCustomLogWithCrash  $data';
                   setState(() {});
                 },
-                child: const Text('logEnabled')),
+                child: const Text('setCustomLogWithCrash')),
             ElevatedButton(
                 onPressed: () async {
                   final bool data = await FlUMeng.instance.reportError('error');
