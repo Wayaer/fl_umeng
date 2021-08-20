@@ -97,6 +97,10 @@ class UMengPlugin : FlutterPlugin {
                     UMCrash.initConfig(bundle)
                     result.success(true)
                 }
+                "setUMCrashDebug" -> {
+                    UMCrash.setDebug(call.arguments as Boolean)
+                    result.success(true)
+                }
                 "customLog" -> {
                     UMCrash.generateCustomLog(call.argument<String>("key"), "type")
                     result.success(true)

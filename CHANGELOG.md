@@ -1,3 +1,5 @@
+## [2.1.1]
+ * add setDebugWithCrash
 ## [2.1.0]
  * add UMAPM
  * add Crash API

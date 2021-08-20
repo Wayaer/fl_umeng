@@ -140,6 +140,14 @@ class FlUMeng {
     return state ?? false;
   }
 
+  /// 设置 Crash debug 模式  only Android
+  Future<bool> setDebugWithCrash(bool isDebug) async {
+    if (!_isAndroid) return false;
+    final bool? state =
+        await _channel.invokeMethod<bool?>('setUMCrashDebug', isDebug);
+    return state ?? false;
+  }
+
   /// 自定义log only Android
   Future<bool> setCustomLogWithCrash(String key, String type) async {
     if (!_isAndroid) return false;
