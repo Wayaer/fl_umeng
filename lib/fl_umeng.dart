@@ -94,7 +94,7 @@ class FlUMeng {
 
   /// 是否开启日志
   Future<bool> setLogEnabled(bool enabled) async {
-    if (!_isAndroid) return false;
+    if (!_supportPlatform) return false;
     final bool? state =
         await _channel.invokeMethod<bool?>('setLogEnabled', enabled);
     return state ?? false;

@@ -17,6 +17,9 @@
             NSDictionary *args = call.arguments;
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
+        }else if ([@"setLogEnabled" isEqualToString:call.method]){
+            [UMConfigure setLogEnabled:call.arguments];
+            result(@(YES));
         }else  if([@"onEvent" isEqualToString:call.method]){
             NSDictionary *args = call.arguments;
             [MobClick event:args[@"event"] attributes:args[@"properties"]];
@@ -57,9 +60,6 @@
             config.memMonitorEnable = args[@"enableMEM"];
             config.oomMonitorEnable = args[@"enableOOM"];
             [UMCrashConfigure setAPMConfig:config];
-            result(@(YES));
-        }else if ([@"setLogEnabled" isEqualToString:call.method]){
-            [UMConfigure setLogEnabled:call.arguments];
             result(@(YES));
         }else{
             result(FlutterMethodNotImplemented);

@@ -29,14 +29,14 @@ class UMengPlugin : FlutterPlugin {
                     }
                     result.success(true)
                 }
+                "setLogEnabled" -> {
+                    UMConfigure.setLogEnabled(call.arguments as Boolean)
+                    result.success(true)
+                }
                 "onEvent" -> {
                     val event = call.argument<String>("event")
                     val map = call.argument<Map<String, *>>("properties")
                     MobclickAgent.onEventObject(context, event, map)
-                    result.success(true)
-                }
-                "setLogEnabled" -> {
-                    UMConfigure.setLogEnabled(call.arguments as Boolean)
                     result.success(true)
                 }
                 "onProfileSignIn" -> {
@@ -93,6 +93,7 @@ class UMengPlugin : FlutterPlugin {
                     bundle.putBoolean(UMCrash.KEY_ENABLE_LAUNCH, call.argument<Boolean>("enableLaunch") == true)
                     bundle.putBoolean(UMCrash.KEY_ENABLE_MEM, call.argument<Boolean>("enableMEM") == true)
                     UMCrash.initConfig(bundle)
+                    result.success(true)
                 }
                 "customLog" -> {
                     UMCrash.generateCustomLog(call.argument<String>("key"), "type")
