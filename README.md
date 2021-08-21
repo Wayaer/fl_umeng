@@ -12,13 +12,13 @@ Future<void> initState() async {
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
-  print('UmengCrash 初始化成功 = $crash');
+  print('UMengCrash 初始化成功 = $crash');
   /// 注册友盟 统计
   final bool? data = await FlUMeng.instance.init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
       channel: 'channel');
-  print('Umeng 初始化成功 = $data');
+  print('UMeng 初始化成功 = $data');
 }
 
 ```
