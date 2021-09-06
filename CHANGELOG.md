@@ -1,3 +1,7 @@
+## [2.2.0]
+ * remove instance , direct initialization
+ * update gradle version
+ * update kotlin version
 ## [2.1.1]
  * add setDebugWithCrash
 ## [2.1.0]

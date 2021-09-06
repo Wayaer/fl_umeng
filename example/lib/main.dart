@@ -30,15 +30,15 @@ class _HomePageState extends State<_HomePage> {
   /// 注册友盟
   Future<void> init() async {
     print('注册友盟');
-    final bool? data = await FlUMeng.instance.init(
+    final bool? data = await FlUMeng().init(
         androidAppKey: '5f8fe2abfac90f1c19a8642e',
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
         channel: 'channel');
     print('Umeng 初始化成功 = $data');
-    final bool? crash = await FlUMeng.instance.setConfigWithCrash();
+    final bool? crash = await FlUMeng().setConfigWithCrash();
     print('UmengCrash 初始化成功 = $crash');
-    await FlUMeng.instance.setConfigWithCrash();
-    await FlUMeng.instance.setLogEnabled(true);
+    await FlUMeng().setConfigWithCrash();
+    await FlUMeng().setLogEnabled(true);
   }
 
   @override
@@ -54,14 +54,14 @@ class _HomePageState extends State<_HomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.signIn('userId');
+                  final bool data = await FlUMeng().signIn('userId');
                   text = 'signIn  $data';
                   setState(() {});
                 },
                 child: const Text('signOff')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.signOff();
+                  final bool data = await FlUMeng().signOff();
                   text = 'signOff  $data';
                   setState(() {});
                 },
@@ -69,37 +69,35 @@ class _HomePageState extends State<_HomePage> {
             ElevatedButton(
                 onPressed: () async {
                   final bool data =
-                      await FlUMeng.instance.setPageCollectionModeManual();
+                      await FlUMeng().setPageCollectionModeManual();
                   text = 'setPageCollectionModeManual  $data';
                   setState(() {});
                 },
                 child: const Text('setPageCollectionModeManual')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data =
-                      await FlUMeng.instance.onPageStart('pageStart');
+                  final bool data = await FlUMeng().onPageStart('pageStart');
                   text = 'onPageStart  $data';
                   setState(() {});
                 },
                 child: const Text('onPageStart')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.onPageEnd('pageEnd');
+                  final bool data = await FlUMeng().onPageEnd('pageEnd');
                   text = 'onPageEnd  $data';
                   setState(() {});
                 },
                 child: const Text('onPageEnd')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data =
-                      await FlUMeng.instance.setPageCollectionModeAuto();
+                  final bool data = await FlUMeng().setPageCollectionModeAuto();
                   text = 'setPageCollectionModeAuto  $data';
                   setState(() {});
                 },
                 child: const Text('setPageCollectionModeAuto')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance
+                  final bool data = await FlUMeng()
                       .onEvent('test', <String, String>{'test': 'test'});
                   text = 'onEvent  $data';
                   setState(() {});
@@ -107,7 +105,7 @@ class _HomePageState extends State<_HomePage> {
                 child: const Text('onEvent')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.setLogEnabled(true);
+                  final bool data = await FlUMeng().setLogEnabled(true);
                   text = 'logEnabled  $data';
                   setState(() {});
                 },
@@ -121,15 +119,15 @@ class _HomePageState extends State<_HomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance
-                      .setCustomLogWithCrash('key', 'type');
+                  final bool data =
+                      await FlUMeng().setCustomLogWithCrash('key', 'type');
                   text = 'setCustomLogWithCrash  $data';
                   setState(() {});
                 },
                 child: const Text('setCustomLogWithCrash')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng.instance.reportError('error');
+                  final bool data = await FlUMeng().reportError('error');
                   text = 'reportError  $data';
                   setState(() {});
                 },

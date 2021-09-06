@@ -4,18 +4,14 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = MethodChannel('UMeng');
 
 class FlUMeng {
-  factory FlUMeng() => _getInstance();
-
-  FlUMeng._internal();
-
-  static FlUMeng get instance => _getInstance();
-
-  static FlUMeng? _instance;
-
-  static FlUMeng _getInstance() {
-    _instance ??= FlUMeng._internal();
-    return _instance!;
+  factory FlUMeng() {
+    _singleton ??= FlUMeng._();
+    return _singleton!;
   }
+
+  FlUMeng._();
+
+  static FlUMeng? _singleton;
 
   /// 初始化
   /// [preInit] 是否预加载 仅支持android
