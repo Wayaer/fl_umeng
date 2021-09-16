@@ -29,14 +29,14 @@ class _HomePageState extends State<_HomePage> {
 
   /// 注册友盟
   Future<void> init() async {
-    print('注册友盟');
+    debugPrint('注册友盟');
     final bool? data = await FlUMeng().init(
         androidAppKey: '5f8fe2abfac90f1c19a8642e',
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
         channel: 'channel');
-    print('Umeng 初始化成功 = $data');
+    debugPrint('Umeng 初始化成功 = $data');
     final bool? crash = await FlUMeng().setConfigWithCrash();
-    print('UmengCrash 初始化成功 = $crash');
+    debugPrint('UmengCrash 初始化成功 = $crash');
     await FlUMeng().setConfigWithCrash();
     await FlUMeng().setLogEnabled(true);
   }

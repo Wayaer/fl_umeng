@@ -68,7 +68,7 @@ void fun(){
 ```dart
 void fun(){
     /// 错误发送  仅支持 Android
-  FlUMeng().reportError();
+  FlUMeng().report Error();
 }
 ```
 
