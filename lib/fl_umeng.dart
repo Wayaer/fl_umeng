@@ -4,10 +4,7 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = MethodChannel('UMeng');
 
 class FlUMeng {
-  factory FlUMeng() {
-    _singleton ??= FlUMeng._();
-    return _singleton!;
-  }
+  factory FlUMeng() => _singleton ??= FlUMeng._();
 
   FlUMeng._();
 
