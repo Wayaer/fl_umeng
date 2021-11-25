@@ -7,13 +7,7 @@
 ```dart
 
 Future<void> initState() async {
-  /// 注册友盟 性能检测
-  final bool? crash = await FlUMengCrash().init(
-      androidAppKey: '5f8fe2abfac90f1c19a8642e',
-      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
-      channel: 'channel');
-  print('UMengCrash 初始化成功 = $crash');
-  /// 注册友盟 统计
+  /// 注册友盟 统计 性能检测
   final bool? data = await FlUMeng().init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
