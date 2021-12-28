@@ -27,6 +27,49 @@ class FlUMeng {
     return state ?? false;
   }
 
+  /// 获取 Andorid端的 UMAPMFlag
+  Future<String?> getUMAPMFlag() async {
+    if (!_isAndroid) return null;
+    return await _channel.invokeMethod<String?>('getUMAPMFlag');
+  }
+
+  /// 获取zid 和 umid
+  Future<UMengID?> getUMId() async {
+    if (!_supportPlatform) return null;
+    final Map<dynamic, dynamic>? map =
+        await _channel.invokeMethod<Map<dynamic, dynamic>?>('getUMId');
+    return UMengID(map?['umId'] as String?, map?['umzId'] as String?);
+  }
+
+  Future<UMengDeviceInfo?> getDeviceInfo() async {
+    if (!_supportPlatform) return null;
+    final Map<dynamic, dynamic>? map =
+        await _channel.invokeMethod<Map<dynamic, dynamic>?>('getDeviceInfo');
+    if (_isAndroid && map != null) {
+      return DeviceAndroidInfo.formMap(map);
+    } else if (_isIOS && map != null) {
+      return DeviceIOSInfo(
+          map["isJailbroken"], map["isPirated"], map["isProxy"]);
+    }
+    return null;
+  }
+
+  /// 设置是否对日志信息进行加密, 默认NO
+  Future<bool> setEncryptEnabled(bool enabled) async {
+    if (!_supportPlatform) return false;
+    final bool? state =
+        await _channel.invokeMethod<bool?>('setEncryptEnabled', enabled);
+    return state ?? false;
+  }
+
+  /// 获取集成测试信息的接口
+  /// android  "$deviceId"
+  /// ios  "$deviceId"
+  Future<String?> getTestDeviceInfo() async {
+    if (!_supportPlatform) return null;
+    return await _channel.invokeMethod<String?>('getTestDeviceInfo');
+  }
+
   /// android 退出app 时 保存统计数据
   Future<bool> onKillProcess(String key, String type) async {
     if (!_isAndroid) return false;
@@ -148,6 +191,96 @@ class FlUMeng {
         'customLog', <String, dynamic>{'key': key, 'type': type});
     return state ?? false;
   }
+}
+
+class UMengDeviceInfo {}
+
+class DeviceAndroidInfo extends UMengDeviceInfo {
+  DeviceAndroidInfo.formMap(Map<dynamic, dynamic> map)
+      : deviceId = map['deviceId'] as String?,
+        mac = map['mac'] as String?,
+        androidId = map['androidId'] as String?,
+        oaId = map['oaId'] as String?,
+        appHashKey = map['appHashKey'] as String?,
+        appMD5Signature = map['appMD5Signature'] as String?,
+        appName = map['appName'] as String?,
+        appSHA1Key = map['appSHA1Key'] as String?,
+        ipAddress = map['ipAddress'] as String?,
+        idfa = map['idfa'] as String?,
+        imei = map['imei'] as String?,
+        imeiNew = map['imeiNew'] as String?,
+        imis = map['imis'] as String?,
+        mccmnc = map['mccmnc'] as String?,
+        meId = map['meId'] as String?,
+        secondSimIMEi = map['secondSimIMEi'] as String?,
+        simICCID = map['simICCID'] as String?,
+        serial = map['serial'] as String?;
+
+  String? deviceId;
+  String? mac;
+  String? androidId;
+  String? oaId;
+  String? appHashKey;
+  String? appMD5Signature;
+  String? appName;
+  String? appSHA1Key;
+  String? ipAddress;
+  String? idfa;
+  String? imei;
+  String? imeiNew;
+  String? imis;
+  String? mccmnc;
+  String? meId;
+  String? secondSimIMEi;
+  String? simICCID;
+  String? serial;
+
+  Map<String, dynamic> toMap() => {
+        'deviceId': deviceId,
+        'mac': mac,
+        'androidId': androidId,
+        'oaId': oaId,
+        'appHashKey': appHashKey,
+        'appMD5Signature': appMD5Signature,
+        'appName': appName,
+        'appSHA1Key': appSHA1Key,
+        'ipAddress': ipAddress,
+        'idfa': idfa,
+        'imei': imei,
+        'imeiNew': imeiNew,
+        'imis': imis,
+        'mccmnc': mccmnc,
+        'meId': meId,
+        'secondSimIMEi': secondSimIMEi,
+        'simICCID': simICCID,
+        'serial': serial,
+      };
+}
+
+class DeviceIOSInfo extends UMengDeviceInfo {
+  DeviceIOSInfo(this.isJailbroken, this.isPirated, this.isProxy);
+
+  /// 判断设备是否越狱，依据是否存在apt和Cydia.app
+  bool? isJailbroken;
+
+  /// 判断App是否被破解
+  bool? isPirated;
+
+  ///
+  bool? isProxy;
+
+  Map<String, dynamic> toMap() => {
+        'isJailbroken': isJailbroken,
+        'isPirated': isPirated,
+        'isProxy': isProxy,
+      };
+}
+
+class UMengID {
+  UMengID(this.umid, this.umzid);
+
+  String? umid;
+  String? umzid;
 }
 
 class CrashMode {

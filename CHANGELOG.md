@@ -1,3 +1,9 @@
+## 2.3.0
+
+* Update build.gradle
+* Added interfaces to get integration test information
+* Add some methods, which you can see in Example
+
 ## 2.2.1
 
 * Update the UmengSDK version on Android

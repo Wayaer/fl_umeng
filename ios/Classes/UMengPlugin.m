@@ -6,7 +6,7 @@
 
 @implementation UMengPlugin
 
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
++(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
                                      methodChannelWithName:@"UMeng"
                                      binaryMessenger:registrar.messenger];
@@ -17,10 +17,26 @@
             NSDictionary *args = call.arguments;
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
+        }else if ([@"getUMId" isEqualToString:call.method]){
+            result(@{
+                @"umId":[UMConfigure getUmengZID],
+                @"umzId":[UMConfigure umidString]
+            });
+        }else if ([@"getDeviceInfo" isEqualToString:call.method]){
+            result(@{
+                @"isJailbroken":[NSNumber numberWithBool:[MobClick  isJailbroken]],
+                @"isPirated":[NSNumber numberWithBool:[MobClick  isPirated]],
+                @"isProxy":[NSNumber numberWithBool:[MobClick  isProxy]],
+            });
+        }else if ([@"setEncryptEnabled" isEqualToString:call.method]){
+            [UMConfigure setEncryptEnabled:call.arguments];
+            result(@(YES));
+        }else if ([@"getTestDeviceInfo" isEqualToString:call.method]){
+            result([UMConfigure deviceIDForIntegration]);
         }else if ([@"setLogEnabled" isEqualToString:call.method]){
             [UMConfigure setLogEnabled:call.arguments];
             result(@(YES));
-        }else  if([@"onEvent" isEqualToString:call.method]){
+        }else if ([@"onEvent" isEqualToString:call.method]){
             NSDictionary *args = call.arguments;
             [MobClick event:args[@"event"] attributes:args[@"properties"]];
             result(@(YES));

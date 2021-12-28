@@ -1,4 +1,5 @@
 import 'package:fl_umeng/fl_umeng.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -44,13 +45,20 @@ class _HomePageState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-        Widget>[
-      Text(text, textAlign: TextAlign.center),
-      const SizedBox(height: 20),
+    return Column(children: [
+      Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          width: double.infinity,
+          height: 140,
+          padding: const EdgeInsets.all(10),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: Colors.black12, borderRadius: BorderRadius.circular(6)),
+          child: SingleChildScrollView(
+              child: Text(text, textAlign: TextAlign.center))),
       Wrap(
-          spacing: 10,
-          runSpacing: 10,
+          spacing: 5,
+          runSpacing: 5,
           alignment: WrapAlignment.center,
           children: <Widget>[
             ElevatedButton(
@@ -59,7 +67,7 @@ class _HomePageState extends State<_HomePage> {
                   text = 'signIn  $data';
                   setState(() {});
                 },
-                child: const Text('signOff')),
+                child: const Text('signIn')),
             ElevatedButton(
                 onPressed: () async {
                   final bool data = await FlUMeng().signOff();
@@ -67,14 +75,6 @@ class _HomePageState extends State<_HomePage> {
                   setState(() {});
                 },
                 child: const Text('signOff')),
-            ElevatedButton(
-                onPressed: () async {
-                  final bool data =
-                      await FlUMeng().setPageCollectionModeManual();
-                  text = 'setPageCollectionModeManual  $data';
-                  setState(() {});
-                },
-                child: const Text('setPageCollectionModeManual')),
             ElevatedButton(
                 onPressed: () async {
                   final bool data = await FlUMeng().onPageStart('pageStart');
@@ -91,13 +91,6 @@ class _HomePageState extends State<_HomePage> {
                 child: const Text('onPageEnd')),
             ElevatedButton(
                 onPressed: () async {
-                  final bool data = await FlUMeng().setPageCollectionModeAuto();
-                  text = 'setPageCollectionModeAuto  $data';
-                  setState(() {});
-                },
-                child: const Text('setPageCollectionModeAuto')),
-            ElevatedButton(
-                onPressed: () async {
                   final bool data = await FlUMeng()
                       .onEvent('test', <String, String>{'test': 'test'});
                   text = 'onEvent  $data';
@@ -106,34 +99,92 @@ class _HomePageState extends State<_HomePage> {
                 child: const Text('onEvent')),
             ElevatedButton(
                 onPressed: () async {
+                  final bool data =
+                      await FlUMeng().setPageCollectionModeManual();
+                  text = 'setPageCollectionModeManual  $data';
+                  setState(() {});
+                },
+                child: const Text('setPageCollectionModeManual')),
+            ElevatedButton(
+                onPressed: () async {
+                  final bool data = await FlUMeng().setPageCollectionModeAuto();
+                  text = 'setPageCollectionModeAuto  $data';
+                  setState(() {});
+                },
+                child: const Text('setPageCollectionModeAuto')),
+            ElevatedButton(
+                onPressed: () async {
                   final bool data = await FlUMeng().setLogEnabled(true);
                   text = 'logEnabled  $data';
                   setState(() {});
                 },
                 child: const Text('logEnabled')),
+            ElevatedButton(
+                onPressed: () async {
+                  final String? data = await FlUMeng().getTestDeviceInfo();
+                  text = 'getTestDeviceInfo  $data';
+                  setState(() {});
+                },
+                child: const Text('getTestDeviceInfo')),
+            ElevatedButton(
+                onPressed: () async {
+                  final bool data = await FlUMeng().setEncryptEnabled(false);
+                  text = 'setEncryptEnabled  $data';
+                  setState(() {});
+                },
+                child: const Text('setEncryptEnabled')),
+            ElevatedButton(
+                onPressed: () async {
+                  final UMengDeviceInfo? data = await FlUMeng().getDeviceInfo();
+                  Map<String, dynamic> map = {};
+                  if (defaultTargetPlatform == TargetPlatform.android) {
+                    map = (data as DeviceAndroidInfo).toMap();
+                  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+                    map = (data as DeviceIOSInfo).toMap();
+                  }
+                  text = 'getDeviceInfo  $map';
+                  setState(() {});
+                },
+                child: const Text('getDeviceInfo')),
+            ElevatedButton(
+                onPressed: () async {
+                  final UMengID? data = await FlUMeng().getUMId();
+                  text = 'getUMId  umid:${data?.umid} umzid:${data?.umzid}';
+                  setState(() {});
+                },
+                child: const Text('getUMId')),
           ]),
-      const Padding(padding: EdgeInsets.all(15), child: Text('仅支持 Android')),
-      Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          alignment: WrapAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () async {
-                  final bool data =
-                      await FlUMeng().setCustomLogWithCrash('key', 'type');
-                  text = 'setCustomLogWithCrash  $data';
-                  setState(() {});
-                },
-                child: const Text('setCustomLogWithCrash')),
-            ElevatedButton(
-                onPressed: () async {
-                  final bool data = await FlUMeng().reportError('error');
-                  text = 'reportError  $data';
-                  setState(() {});
-                },
-                child: const Text('reportError')),
-          ])
+      if (defaultTargetPlatform == TargetPlatform.android) ...[
+        const Padding(padding: EdgeInsets.all(5), child: Text('仅支持 Android')),
+        Wrap(
+            spacing: 5,
+            runSpacing: 5,
+            alignment: WrapAlignment.center,
+            children: <Widget>[
+              ElevatedButton(
+                  onPressed: () async {
+                    final bool data =
+                        await FlUMeng().setCustomLogWithCrash('key', 'type');
+                    text = 'setCustomLogWithCrash  $data';
+                    setState(() {});
+                  },
+                  child: const Text('setCustomLogWithCrash')),
+              ElevatedButton(
+                  onPressed: () async {
+                    final bool data = await FlUMeng().reportError('error');
+                    text = 'reportError  $data';
+                    setState(() {});
+                  },
+                  child: const Text('reportError')),
+              ElevatedButton(
+                  onPressed: () async {
+                    final String? data = await FlUMeng().getUMAPMFlag();
+                    text = 'getUMAPMFlag  $data';
+                    setState(() {});
+                  },
+                  child: const Text('getUMAPMFlag')),
+            ])
+      ]
     ]);
   }
 }
