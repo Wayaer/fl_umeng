@@ -18,9 +18,11 @@
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
         }else if ([@"getUMId" isEqualToString:call.method]){
+            NSString* zid=[UMConfigure getUmengZID];
+            NSString* uid=[UMConfigure umidString];
             result(@{
-                @"umId":[UMConfigure getUmengZID],
-                @"umzId":[UMConfigure umidString]
+                @"umId":uid==nil?@"":uid,
+                @"umzId":zid==nil?@"":zid
             });
         }else if ([@"getDeviceInfo" isEqualToString:call.method]){
             result(@{
@@ -75,6 +77,7 @@
             config.launchMonitorEnable = args[@"enableLaunch"];
             config.memMonitorEnable = args[@"enableMEM"];
             config.oomMonitorEnable = args[@"enableOOM"];
+            [UMCrashConfigure enableNetworkForProtocol:args[@"enableNetworkForProtocol"]];
             [UMCrashConfigure setAPMConfig:config];
             result(@(YES));
         }else{

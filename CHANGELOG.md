@@ -1,3 +1,8 @@
+## 2.3.1
+
+* Fix bugs
+* `CrashMode` Adds enableNetworkForProtocol in ios
+
 ## 2.3.0
 
 * Update build.gradle

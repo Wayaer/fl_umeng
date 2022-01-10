@@ -294,6 +294,7 @@ class CrashMode {
     this.enableAnr = true,
     this.enableCrashAndBlock = true,
     this.enableOOM = true,
+    this.enableNetworkForProtocol = false,
   });
 
   /// Android and IOS
@@ -326,6 +327,11 @@ class CrashMode {
   late bool enableCrashAndBlock;
   late bool enableOOM;
 
+  /// 集成NSURLProtocol和U-APM的网络模块注意事项
+  /// 增加网络分析模块在iOS13及以下系统的单独开关，以避免在同时集成NSURLProtocol和U-APM的网络模块的本身冲突引起崩溃，特增加enableNetworkForProtocol函数。
+  /// 官方文档 https://developer.umeng.com/docs/193624/detail/291394
+  late bool enableNetworkForProtocol;
+
   Map<String, bool> toMap() => <String, bool>{
         'enableLaunch': enableLaunch,
         'enableMEM': enableMEM,
@@ -336,6 +342,7 @@ class CrashMode {
         'enablePa': enablePa,
         'enableCrashAndBlock': enableCrashAndBlock,
         'enableOOM': enableOOM,
+        'enableNetworkForProtocol': enableNetworkForProtocol,
       };
 }
 
