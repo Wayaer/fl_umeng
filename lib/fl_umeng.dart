@@ -16,13 +16,15 @@ class FlUMeng {
       {required String androidAppKey,
       required String iosAppKey,
       bool preInit = false,
-      String channel = ''}) async {
+      String channel = '',
+      CrashMode crashMode = const CrashMode()}) async {
     if (!_supportPlatform) return false;
     final bool? state =
         await _channel.invokeMethod<bool?>('init', <String, dynamic>{
       'appKey': _isAndroid ? androidAppKey : iosAppKey,
       'channel': channel,
-      'preInit': preInit
+      'preInit': preInit,
+      'crashMode': crashMode.toMap(),
     });
     return state ?? false;
   }
@@ -167,15 +169,6 @@ class FlUMeng {
     return state ?? false;
   }
 
-  /// 初始化 Crash
-  Future<bool> setConfigWithCrash({CrashMode? crashMode}) async {
-    if (!_supportPlatform) return false;
-    crashMode ??= CrashMode();
-    final bool? state =
-        await _channel.invokeMethod<bool?>('setCrashConfig', crashMode.toMap());
-    return state ?? false;
-  }
-
   /// 设置 Crash debug 模式  only Android
   Future<bool> setDebugWithCrash(bool isDebug) async {
     if (!_isAndroid) return false;
@@ -284,8 +277,8 @@ class UMengID {
 }
 
 class CrashMode {
-  CrashMode({
-    this.enableUnExp = false,
+  const CrashMode({
+    this.enableUnExp = true,
     this.enableLaunch = true,
     this.enableMEM = true,
     this.enableJava = true,
@@ -294,43 +287,45 @@ class CrashMode {
     this.enableAnr = true,
     this.enableCrashAndBlock = true,
     this.enableOOM = true,
+    this.networkEnable = true,
     this.enableNetworkForProtocol = false,
   });
 
   /// Android and IOS
   /// 一级开关优先级高于二级开关，如果一级和二级同时设置则以一级为准，目前仅崩溃类型有二级开关。
   /// 用于关闭启动捕获，默认为true可设置为false进行关闭 一级
-  late bool enableLaunch;
+  final bool enableLaunch;
 
   /// 用于关闭内存占用捕获，默认为true可设置为false进行关闭 一级
-  late bool enableMEM;
+  final bool enableMEM;
 
   /// Android only
   ///
   /// 用于关闭java crash捕获，默认为true可设置为false进行关闭 二级
-  late bool enableJava;
+  final bool enableJava;
 
   /// 用于关闭native crash捕获，默认为true可设置为false进行关闭 二级
-  late bool enableNative;
+  final bool enableNative;
 
   /// 用于关闭java和native crash捕获，默认为false可设置为true进行关闭 一级
-  late bool enableUnExp;
+  final bool enableUnExp;
 
   /// 用于关闭ANR捕获，默认为true可设置为false进行关闭 一级
-  late bool enableAnr;
+  final bool enableAnr;
 
   /// 用于关闭卡顿捕获，默认为true可设置为false进行关闭 一级
-  late bool enablePa;
+  final bool enablePa;
 
   ///  IOS only
   ///
-  late bool enableCrashAndBlock;
-  late bool enableOOM;
+  final bool enableCrashAndBlock;
+  final bool enableOOM;
+  final bool networkEnable;
 
   /// 集成NSURLProtocol和U-APM的网络模块注意事项
   /// 增加网络分析模块在iOS13及以下系统的单独开关，以避免在同时集成NSURLProtocol和U-APM的网络模块的本身冲突引起崩溃，特增加enableNetworkForProtocol函数。
   /// 官方文档 https://developer.umeng.com/docs/193624/detail/291394
-  late bool enableNetworkForProtocol;
+  final bool enableNetworkForProtocol;
 
   Map<String, bool> toMap() => <String, bool>{
         'enableLaunch': enableLaunch,
@@ -342,6 +337,7 @@ class CrashMode {
         'enablePa': enablePa,
         'enableCrashAndBlock': enableCrashAndBlock,
         'enableOOM': enableOOM,
+        'networkEnable': networkEnable,
         'enableNetworkForProtocol': enableNetworkForProtocol,
       };
 }

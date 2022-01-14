@@ -37,9 +37,6 @@ class _HomePageState extends State<_HomePage> {
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
         channel: 'channel');
     debugPrint('Umeng 初始化成功 = $data');
-    final bool? crash = await FlUMeng().setConfigWithCrash();
-    debugPrint('UmengCrash 初始化成功 = $crash');
-    await FlUMeng().setConfigWithCrash();
     await FlUMeng().setLogEnabled(true);
   }
 

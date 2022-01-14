@@ -12,9 +12,20 @@
                                      binaryMessenger:registrar.messenger];
     
     [channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-        
         if ([@"init" isEqualToString:call.method]){
             NSDictionary *args = call.arguments;
+            NSDictionary *crash = args[@"crashMode"];
+            if(crash != nil){
+                [NSURLProtocol registerClass:[NSURLProtocol class]];
+                [UMCrashConfigure enableNetworkForProtocol:crash[@"enableNetworkForProtocol"]];
+                UMAPMConfig *config = [UMAPMConfig defaultConfig];
+                config.crashAndBlockMonitorEnable = crash[@"enableCrashAndBlock"];
+                config.launchMonitorEnable = crash[@"enableLaunch"];
+                config.memMonitorEnable = crash[@"enableMEM"];
+                config.oomMonitorEnable = crash[@"enableOOM"];
+                config.networkEnable = crash[@"networkEnable"];
+                [UMCrashConfigure setAPMConfig:config];
+            }
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
         }else if ([@"getUMId" isEqualToString:call.method]){
@@ -69,16 +80,6 @@
         }else if ([@"setAppVersion" isEqualToString:call.method]){
             NSDictionary *args = call.arguments;
             [UMCrashConfigure setAppVersion:args[@"version"] buildVersion:args[@"buildId"]];
-            result(@(YES));
-        }else if ([@"setCrashConfig" isEqualToString:call.method]){
-            NSDictionary *args = call.arguments;
-            UMAPMConfig* config = [UMAPMConfig defaultConfig];
-            config.crashAndBlockMonitorEnable = args[@"enableCrashAndBlock"];
-            config.launchMonitorEnable = args[@"enableLaunch"];
-            config.memMonitorEnable = args[@"enableMEM"];
-            config.oomMonitorEnable = args[@"enableOOM"];
-            [UMCrashConfigure enableNetworkForProtocol:args[@"enableNetworkForProtocol"]];
-            [UMCrashConfigure setAPMConfig:config];
             result(@(YES));
         }else{
             result(FlutterMethodNotImplemented);

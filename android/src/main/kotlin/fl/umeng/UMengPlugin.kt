@@ -12,7 +12,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
 
-class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
+open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
@@ -29,6 +29,7 @@ class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 val key = call.argument<String>("appKey")
                 val channel = call.argument<String>("channel")
                 val preInit = call.argument<Boolean>("preInit")
+                setCrashConfig(call.argument<Map<String, Any>>("crashMode"))
                 if (preInit == true) {
                     UMConfigure.preInit(context, key, channel)
                 } else {
@@ -129,39 +130,7 @@ class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 )
                 result.success(true)
             }
-            "setCrashConfig" -> {
-                val bundle = Bundle()
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_JAVA,
-                    call.argument<Boolean>("enableJava") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_NATIVE,
-                    call.argument<Boolean>("enableNative") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_UNEXP,
-                    call.argument<Boolean>("enableUnExp") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_ANR,
-                    call.argument<Boolean>("enableAnr") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_PA,
-                    call.argument<Boolean>("enablePa") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_LAUNCH,
-                    call.argument<Boolean>("enableLaunch") == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_MEM,
-                    call.argument<Boolean>("enableMEM") == true
-                )
-                UMCrash.initConfig(bundle)
-                result.success(true)
-            }
+
             "getUMAPMFlag" -> result.success(UMCrash.getUMAPMFlag())
             "setUMCrashDebug" -> {
                 UMCrash.setDebug(call.arguments as Boolean)
@@ -172,6 +141,41 @@ class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 result.success(true)
             }
             else -> result.notImplemented()
+        }
+    }
+
+    private fun setCrashConfig(argument: Map<String, Any>?) {
+        val bundle = Bundle()
+        if (argument != null) {
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_CRASH_JAVA,
+                argument["enableJava"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_CRASH_NATIVE,
+                argument["enableNative"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_CRASH_UNEXP,
+                argument["enableUnExp"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_ANR,
+                argument["enableAnr"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_PA,
+                argument["enablePa"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_LAUNCH,
+                argument["enableLaunch"] == true
+            )
+            bundle.putBoolean(
+                UMCrash.KEY_ENABLE_MEM,
+                argument["enableMEM"] == true
+            )
+            UMCrash.initConfig(bundle)
         }
     }
 

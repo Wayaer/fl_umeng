@@ -1,3 +1,8 @@
+## 2.5.0
+
+* Remove `setConfigWithCrash()`,Use it directly in the init method
+* Fix bugs
+
 ## 2.3.1
 
 * Fix bugs
