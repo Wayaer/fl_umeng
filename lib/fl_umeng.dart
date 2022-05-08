@@ -198,7 +198,6 @@ class DeviceAndroidInfo extends UMengDeviceInfo {
         appMD5Signature = map['appMD5Signature'] as String?,
         appName = map['appName'] as String?,
         appSHA1Key = map['appSHA1Key'] as String?,
-        ipAddress = map['ipAddress'] as String?,
         idfa = map['idfa'] as String?,
         imei = map['imei'] as String?,
         imeiNew = map['imeiNew'] as String?,
@@ -217,7 +216,6 @@ class DeviceAndroidInfo extends UMengDeviceInfo {
   String? appMD5Signature;
   String? appName;
   String? appSHA1Key;
-  String? ipAddress;
   String? idfa;
   String? imei;
   String? imeiNew;
@@ -237,7 +235,6 @@ class DeviceAndroidInfo extends UMengDeviceInfo {
         'appMD5Signature': appMD5Signature,
         'appName': appName,
         'appSHA1Key': appSHA1Key,
-        'ipAddress': ipAddress,
         'idfa': idfa,
         'imei': imei,
         'imeiNew': imeiNew,
@@ -288,7 +285,7 @@ class CrashMode {
     this.enableCrashAndBlock = true,
     this.enableOOM = true,
     this.networkEnable = true,
-    this.enableNetworkForProtocol = false,
+    this.enableNetworkForProtocol = true,
   });
 
   /// Android and IOS

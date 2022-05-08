@@ -6,82 +6,82 @@
 
 @implementation UMengPlugin
 
-+(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-    FlutterMethodChannel* channel = [FlutterMethodChannel
-                                     methodChannelWithName:@"UMeng"
-                                     binaryMessenger:registrar.messenger];
-    
-    [channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-        if ([@"init" isEqualToString:call.method]){
++ (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
+    FlutterMethodChannel *channel = [FlutterMethodChannel
+            methodChannelWithName:@"UMeng"
+                  binaryMessenger:registrar.messenger];
+
+    [channel setMethodCallHandler:^(FlutterMethodCall *_Nonnull call, FlutterResult _Nonnull result) {
+        if ([@"init" isEqualToString:call.method]) {
             NSDictionary *args = call.arguments;
             NSDictionary *crash = args[@"crashMode"];
-            if(crash != nil){
+            if (crash != nil) {
                 [NSURLProtocol registerClass:[NSURLProtocol class]];
-                [UMCrashConfigure enableNetworkForProtocol:crash[@"enableNetworkForProtocol"]];
+                [UMCrashConfigure enableNetworkForProtocol:[crash[@"enableNetworkForProtocol"] boolValue]];
                 UMAPMConfig *config = [UMAPMConfig defaultConfig];
-                config.crashAndBlockMonitorEnable = crash[@"enableCrashAndBlock"];
-                config.launchMonitorEnable = crash[@"enableLaunch"];
-                config.memMonitorEnable = crash[@"enableMEM"];
-                config.oomMonitorEnable = crash[@"enableOOM"];
-                config.networkEnable = crash[@"networkEnable"];
+                config.crashAndBlockMonitorEnable = [crash[@"enableCrashAndBlock"] boolValue];
+                config.launchMonitorEnable = [crash[@"enableLaunch"] boolValue];
+                config.memMonitorEnable = [crash[@"enableMEM"] boolValue];
+                config.oomMonitorEnable = [crash[@"enableOOM"] boolValue];
+                config.networkEnable = [crash[@"networkEnable"] boolValue];
                 [UMCrashConfigure setAPMConfig:config];
             }
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
-        }else if ([@"getUMId" isEqualToString:call.method]){
-            NSString* zid=[UMConfigure getUmengZID];
-            NSString* uid=[UMConfigure umidString];
+        } else if ([@"getUMId" isEqualToString:call.method]) {
+            NSString *zid = [UMConfigure getUmengZID];
+            NSString *uid = [UMConfigure umidString];
             result(@{
-                @"umId":uid==nil?@"":uid,
-                @"umzId":zid==nil?@"":zid
+                    @"umId": uid == nil ? @"" : uid,
+                    @"umzId": zid == nil ? @"" : zid
             });
-        }else if ([@"getDeviceInfo" isEqualToString:call.method]){
+        } else if ([@"getDeviceInfo" isEqualToString:call.method]) {
             result(@{
-                @"isJailbroken":[NSNumber numberWithBool:[MobClick  isJailbroken]],
-                @"isPirated":[NSNumber numberWithBool:[MobClick  isPirated]],
-                @"isProxy":[NSNumber numberWithBool:[MobClick  isProxy]],
+                    @"isJailbroken": @([MobClick isJailbroken]),
+                    @"isPirated": @([MobClick isPirated]),
+                    @"isProxy": @([MobClick isProxy]),
             });
-        }else if ([@"setEncryptEnabled" isEqualToString:call.method]){
-            [UMConfigure setEncryptEnabled:call.arguments];
+        } else if ([@"setEncryptEnabled" isEqualToString:call.method]) {
+            [UMConfigure setEncryptEnabled:[call.arguments boolValue]];
             result(@(YES));
-        }else if ([@"getTestDeviceInfo" isEqualToString:call.method]){
+        } else if ([@"getTestDeviceInfo" isEqualToString:call.method]) {
             result([UMConfigure deviceIDForIntegration]);
-        }else if ([@"setLogEnabled" isEqualToString:call.method]){
-            [UMConfigure setLogEnabled:call.arguments];
+        } else if ([@"setLogEnabled" isEqualToString:call.method]) {
+            [UMConfigure setLogEnabled:[call.arguments boolValue]];
             result(@(YES));
-        }else if ([@"onEvent" isEqualToString:call.method]){
+        } else if ([@"onEvent" isEqualToString:call.method]) {
             NSDictionary *args = call.arguments;
             [MobClick event:args[@"event"] attributes:args[@"properties"]];
             result(@(YES));
-        }else if ([@"onProfileSignIn" isEqualToString:call.method]){
+        } else if ([@"onProfileSignIn" isEqualToString:call.method]) {
             NSDictionary *args = call.arguments;
             NSString *provider = args[@"provider"];
-            if(provider){
+            if (provider) {
                 [MobClick profileSignInWithPUID:args[@"userID"] provider:provider];
-            }else{
+            } else {
                 [MobClick profileSignInWithPUID:args[@"userID"]];
             }
             result(@(YES));
-        }else if ([@"onProfileSignOff" isEqualToString:call.method]){
+        } else if ([@"onProfileSignOff" isEqualToString:call.method]) {
             [MobClick profileSignOff];
             result(@(YES));
-        }else if ([@"setPageCollectionModeAuto" isEqualToString:call.method]){
+        } else if ([@"setPageCollectionModeAuto" isEqualToString:call.method]) {
             [MobClick setAutoPageEnabled:YES];
             result(@(YES));
-        }else if ([@"setPageCollectionModeManual" isEqualToString:call.method]){
+        } else if ([@"setPageCollectionModeManual" isEqualToString:call.method]) {
             [MobClick setAutoPageEnabled:NO];
             result(@(YES));
-        }else if ([@"onPageStart" isEqualToString:call.method]){
+        } else if ([@"onPageStart" isEqualToString:call.method]) {
             [MobClick beginLogPageView:call.arguments];
             result(@(YES));
-        }else if ([@"onPageEnd" isEqualToString:call.method]){
+        } else if ([@"onPageEnd" isEqualToString:call.method]) {
             [MobClick endLogPageView:call.arguments];
             result(@(YES));
-        }else if ([@"setAppVersion" isEqualToString:call.method]){
+        } else if ([@"setAppVersion" isEqualToString:call.method]) {
             NSDictionary *args = call.arguments;
             [UMCrashConfigure setAppVersion:args[@"version"] buildVersion:args[@"buildId"]];
             result(@(YES));
-        }else{
+        } else {
             result(FlutterMethodNotImplemented);
         }
     }];

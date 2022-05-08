@@ -39,34 +39,33 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
             }
             "getUMId" -> {
                 result.success(
-                    mapOf(
-                        "umId" to UMConfigure.getUMIDString(context),
-                        "umzId" to UMConfigure.getUmengZID(context),
-                    )
+                        mapOf(
+                                "umId" to UMConfigure.getUMIDString(context),
+                                "umzId" to UMConfigure.getUmengZID(context),
+                        )
                 )
             }
             "getDeviceInfo" -> {
                 result.success(
-                    mapOf(
-                        "deviceId" to DeviceConfig.getDeviceId(context),
-                        "mac" to DeviceConfig.getMac(context),
-                        "androidId" to DeviceConfig.getAndroidId(context),
-                        "oaId" to DeviceConfig.getOaid(context),
-                        "appHashKey" to DeviceConfig.getAppHashKey(context),
-                        "appMD5Signature" to DeviceConfig.getAppMD5Signature(context),
-                        "appName" to DeviceConfig.getAppName(context),
-                        "appSHA1Key" to DeviceConfig.getAppSHA1Key(context),
-                        "iPAddress" to DeviceConfig.getIPAddress(context),
-                        "idfa" to DeviceConfig.getIdfa(context),
-                        "imei" to DeviceConfig.getImei(context),
-                        "imeiNew" to DeviceConfig.getImeiNew(context),
-                        "imis" to DeviceConfig.getImsi(context),
-                        "mccmnc" to DeviceConfig.getMCCMNC(context),
-                        "meId" to DeviceConfig.getMeid(context),
-                        "secondSimIMEi" to DeviceConfig.getSecondSimIMEi(context),
-                        "simICCID" to DeviceConfig.getSimICCID(context),
-                        "serial" to DeviceConfig.getSerial(),
-                    )
+                        mapOf(
+                                "deviceId" to DeviceConfig.getDeviceId(context),
+                                "mac" to DeviceConfig.getMac(context),
+                                "androidId" to DeviceConfig.getAndroidId(context),
+                                "oaId" to DeviceConfig.getOaid(context),
+                                "appHashKey" to DeviceConfig.getAppHashKey(context),
+                                "appMD5Signature" to DeviceConfig.getAppMD5Signature(context),
+                                "appName" to DeviceConfig.getAppName(context),
+                                "appSHA1Key" to DeviceConfig.getAppSHA1Key(context),
+                                "idfa" to DeviceConfig.getIdfa(context),
+                                "imei" to DeviceConfig.getImei(context),
+                                "imeiNew" to DeviceConfig.getImeiNew(context),
+                                "imis" to DeviceConfig.getImsi(context),
+                                "mccmnc" to DeviceConfig.getMCCMNC(context),
+                                "meId" to DeviceConfig.getMeid(context),
+                                "secondSimIMEi" to DeviceConfig.getSecondSimIMEi(context),
+                                "simICCID" to DeviceConfig.getSimICCID(context),
+                                "serial" to DeviceConfig.getSerial(),
+                        )
                 )
             }
             "setEncryptEnabled" -> {
@@ -124,9 +123,9 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
             }
             "setAppVersion" -> {
                 UMCrash.setAppVersion(
-                    call.argument("version"),
-                    call.argument("subVersion"),
-                    call.argument("buildId")
+                        call.argument("version"),
+                        call.argument("subVersion"),
+                        call.argument("buildId")
                 )
                 result.success(true)
             }
@@ -148,32 +147,32 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         val bundle = Bundle()
         if (argument != null) {
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_JAVA,
-                argument["enableJava"] == true
+                    UMCrash.KEY_ENABLE_CRASH_JAVA,
+                    argument["enableJava"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_NATIVE,
-                argument["enableNative"] == true
+                    UMCrash.KEY_ENABLE_CRASH_NATIVE,
+                    argument["enableNative"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_UNEXP,
-                argument["enableUnExp"] == true
+                    UMCrash.KEY_ENABLE_CRASH_UNEXP,
+                    argument["enableUnExp"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_ANR,
-                argument["enableAnr"] == true
+                    UMCrash.KEY_ENABLE_ANR,
+                    argument["enableAnr"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_PA,
-                argument["enablePa"] == true
+                    UMCrash.KEY_ENABLE_PA,
+                    argument["enablePa"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_LAUNCH,
-                argument["enableLaunch"] == true
+                    UMCrash.KEY_ENABLE_LAUNCH,
+                    argument["enableLaunch"] == true
             )
             bundle.putBoolean(
-                UMCrash.KEY_ENABLE_MEM,
-                argument["enableMEM"] == true
+                    UMCrash.KEY_ENABLE_MEM,
+                    argument["enableMEM"] == true
             )
             UMCrash.initConfig(bundle)
         }
