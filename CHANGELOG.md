@@ -1,3 +1,7 @@
+## 2.5.1
+
+* Update the UmengSDK version on Android
+
 ## 2.5.0
 
 * Remove `setConfigWithCrash()`,Use it directly in the init method

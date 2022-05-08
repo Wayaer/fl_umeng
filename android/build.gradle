@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.umeng.umsdk:common:9.4.4'
+    implementation 'com.umeng.umsdk:common:9.4.9'
     implementation 'com.umeng.umsdk:asms:1.4.1'
     implementation 'com.umeng.umsdk:apm:1.5.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30"
