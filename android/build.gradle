@@ -9,8 +9,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
+        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
     }
 }
 
@@ -44,10 +44,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.umeng.umsdk:common:9.4.9'
-    implementation 'com.umeng.umsdk:asms:1.4.1'
-    implementation 'com.umeng.umsdk:apm:1.5.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30"
+    implementation 'com.umeng.umsdk:common:9.5.0'
+    implementation 'com.umeng.umsdk:asms:1.5.0'
+    implementation 'com.umeng.umsdk:apm:1.6.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
 }
 
 repositories {

@@ -1,3 +1,8 @@
+## 2.6.0
+
+* Update the UmengSDK version on Android
+* Adaptive Flutter 3.0
+
 ## 2.5.2
 
 * Update the UmengSDK version on Android

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.umeng.example">
     <!--允许程序写入本地存储-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <!--允许程序读取本地存储-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -19,34 +20,21 @@
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="UMeng"
-        android:allowBackup="false">
+        android:label="UMeng">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:exported="true"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:windowSoftInputMode="adjustResize">
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/LaunchTheme" />
-            <meta-data
-                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-                android:value="true" />
-            <meta-data
-                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-                android:resource="@android:color/white" />
-
-            <meta-data
-                android:name="UMENG_APPKEY"
-                android:value="5f895b5a94846f78a9749090" />
-            <meta-data
-                android:name="UMENG_CHANNEL"
-                android:value="android" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

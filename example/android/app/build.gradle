@@ -31,10 +31,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        disable 'InvalidPackage'
-    }
     signingConfigs {
         release {
             storeFile file("umeng.jks")
@@ -53,17 +49,17 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-rules.pro'
         }
         debug {
-            minifyEnabled true
-            shrinkResources true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-rules.pro'
         }
+    }
+    lint {
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
     }
 
 }
