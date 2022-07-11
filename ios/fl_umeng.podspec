@@ -17,7 +17,6 @@ A new Flutter plugin.
   s.platform = :ios, '10.0'
   s.dependency 'UMCommon'
   s.dependency 'UMDevice'
-  s.dependency 'UMAPM'
   s.frameworks = 'CoreTelephony','SystemConfiguration'
   s.libraries = 'z','sqlite3','c++'
   s.ios.deployment_target = '10.0'

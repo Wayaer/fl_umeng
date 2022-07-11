@@ -9,6 +9,9 @@ class FlUMeng {
   FlUMeng._();
 
   static FlUMeng? _singleton;
+  bool _isInit = false;
+
+  bool get isInit => _isInit;
 
   /// 初始化
   /// [preInit] 是否预加载 仅支持android
@@ -16,23 +19,16 @@ class FlUMeng {
       {required String androidAppKey,
       required String iosAppKey,
       bool preInit = false,
-      String channel = '',
-      CrashMode crashMode = const CrashMode()}) async {
+      String channel = ''}) async {
     if (!_supportPlatform) return false;
     final bool? state =
         await _channel.invokeMethod<bool?>('init', <String, dynamic>{
       'appKey': _isAndroid ? androidAppKey : iosAppKey,
       'channel': channel,
-      'preInit': preInit,
-      'crashMode': crashMode.toMap(),
+      'preInit': preInit
     });
+    _isInit = state ?? false;
     return state ?? false;
-  }
-
-  /// 获取 Andorid端的 UMAPMFlag
-  Future<String?> getUMAPMFlag() async {
-    if (!_isAndroid) return null;
-    return await _channel.invokeMethod<String?>('getUMAPMFlag');
   }
 
   /// 获取zid 和 umid
@@ -153,37 +149,6 @@ class FlUMeng {
         await _channel.invokeMethod<bool?>('reportError', error);
     return state ?? false;
   }
-
-  /// 设置app 版本
-  /// [version] 1.0.01
-  /// [buildId] 1
-  Future<bool> setAppVersionWithCrash(
-      String version, String subVersion, String buildId) async {
-    if (!_supportPlatform) return false;
-    final bool? state =
-        await _channel.invokeMethod<bool?>('setAppVersion', <String, dynamic>{
-      'version': version,
-      'subVersion': subVersion,
-      'buildId': buildId,
-    });
-    return state ?? false;
-  }
-
-  /// 设置 Crash debug 模式  only Android
-  Future<bool> setDebugWithCrash(bool isDebug) async {
-    if (!_isAndroid) return false;
-    final bool? state =
-        await _channel.invokeMethod<bool?>('setUMCrashDebug', isDebug);
-    return state ?? false;
-  }
-
-  /// 自定义log only Android
-  Future<bool> setCustomLogWithCrash(String key, String type) async {
-    if (!_isAndroid) return false;
-    final bool? state = await _channel.invokeMethod<bool?>(
-        'customLog', <String, dynamic>{'key': key, 'type': type});
-    return state ?? false;
-  }
 }
 
 class UMengDeviceInfo {}
@@ -271,72 +236,6 @@ class UMengID {
 
   String? umid;
   String? umzid;
-}
-
-class CrashMode {
-  const CrashMode({
-    this.enableUnExp = true,
-    this.enableLaunch = true,
-    this.enableMEM = true,
-    this.enableJava = true,
-    this.enableNative = true,
-    this.enablePa = true,
-    this.enableAnr = true,
-    this.enableCrashAndBlock = true,
-    this.enableOOM = true,
-    this.networkEnable = true,
-    this.enableNetworkForProtocol = true,
-  });
-
-  /// Android and IOS
-  /// 一级开关优先级高于二级开关，如果一级和二级同时设置则以一级为准，目前仅崩溃类型有二级开关。
-  /// 用于关闭启动捕获，默认为true可设置为false进行关闭 一级
-  final bool enableLaunch;
-
-  /// 用于关闭内存占用捕获，默认为true可设置为false进行关闭 一级
-  final bool enableMEM;
-
-  /// Android only
-  ///
-  /// 用于关闭java crash捕获，默认为true可设置为false进行关闭 二级
-  final bool enableJava;
-
-  /// 用于关闭native crash捕获，默认为true可设置为false进行关闭 二级
-  final bool enableNative;
-
-  /// 用于关闭java和native crash捕获，默认为false可设置为true进行关闭 一级
-  final bool enableUnExp;
-
-  /// 用于关闭ANR捕获，默认为true可设置为false进行关闭 一级
-  final bool enableAnr;
-
-  /// 用于关闭卡顿捕获，默认为true可设置为false进行关闭 一级
-  final bool enablePa;
-
-  ///  IOS only
-  ///
-  final bool enableCrashAndBlock;
-  final bool enableOOM;
-  final bool networkEnable;
-
-  /// 集成NSURLProtocol和U-APM的网络模块注意事项
-  /// 增加网络分析模块在iOS13及以下系统的单独开关，以避免在同时集成NSURLProtocol和U-APM的网络模块的本身冲突引起崩溃，特增加enableNetworkForProtocol函数。
-  /// 官方文档 https://developer.umeng.com/docs/193624/detail/291394
-  final bool enableNetworkForProtocol;
-
-  Map<String, bool> toMap() => <String, bool>{
-        'enableLaunch': enableLaunch,
-        'enableMEM': enableMEM,
-        'enableJava': enableJava,
-        'enableNative': enableNative,
-        'enableUnExp': enableUnExp,
-        'enableAnr': enableAnr,
-        'enablePa': enablePa,
-        'enableCrashAndBlock': enableCrashAndBlock,
-        'enableOOM': enableOOM,
-        'networkEnable': networkEnable,
-        'enableNetworkForProtocol': enableNetworkForProtocol,
-      };
 }
 
 bool get _supportPlatform {

@@ -1,11 +1,9 @@
 package fl.umeng
 
 import android.content.Context
-import android.os.Bundle
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.commonsdk.statistics.common.DeviceConfig
-import com.umeng.umcrash.UMCrash
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.MethodCall
@@ -29,7 +27,6 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 val key = call.argument<String>("appKey")
                 val channel = call.argument<String>("channel")
                 val preInit = call.argument<Boolean>("preInit")
-                setCrashConfig(call.argument<Map<String, Any>>("crashMode"))
                 if (preInit == true) {
                     UMConfigure.preInit(context, key, channel)
                 } else {
@@ -121,53 +118,10 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 MobclickAgent.onKillProcess(context)
                 result.success(true)
             }
-            "setAppVersion" -> {
-                UMCrash.setAppVersion(
-                    call.argument("version"), call.argument("subVersion"), call.argument("buildId")
-                )
-                result.success(true)
-            }
-
-            "getUMAPMFlag" -> result.success(UMCrash.getUMAPMFlag())
-            "setUMCrashDebug" -> {
-                UMCrash.setDebug(call.arguments as Boolean)
-                result.success(true)
-            }
-            "customLog" -> {
-                UMCrash.generateCustomLog(call.argument<String>("key"), "type")
-                result.success(true)
-            }
             else -> result.notImplemented()
         }
     }
 
-    private fun setCrashConfig(argument: Map<String, Any>?) {
-        val bundle = Bundle()
-        if (argument != null) {
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_JAVA, argument["enableJava"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_NATIVE, argument["enableNative"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_CRASH_UNEXP, argument["enableUnExp"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_ANR, argument["enableAnr"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_PA, argument["enablePa"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_LAUNCH, argument["enableLaunch"] == true
-            )
-            bundle.putBoolean(
-                UMCrash.KEY_ENABLE_MEM, argument["enableMEM"] == true
-            )
-            UMCrash.initConfig(bundle)
-        }
-    }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         channel.setMethodCallHandler(null)

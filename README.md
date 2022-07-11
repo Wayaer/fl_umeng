@@ -1,5 +1,10 @@
 ### 友盟统计 for Flutter
 
+- 3.0.0 更新
+- 移除APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
+- 新增 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
+- 以上均基于 fl_umeng 必须初始化友盟`FlUMeng().init()`
+
 ## 开始使用
 
 - 注册友盟
@@ -18,54 +23,56 @@ Future<void> initState() async {
 ```
 
 - 设置账号
+
 ```dart
-  
-void fun(){
-    /// 是否开启log 仅支持 Android
+
+void fun() {
+  /// 是否开启log 仅支持 Android
   FlUMeng().setLogEnabled(true);
 
-   /// 设置用户账号
+  /// 设置用户账号
   FlUMeng().signIn('userID');
 
-   /// 取消用户账号
+  /// 取消用户账号
   FlUMeng().signOff();
-
 }
 ```
 
 - 发送自定义事件
+
 ```dart
    /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
-void fun(){
+void fun() {
   FlUMeng().onEvent();
 }
 ```
 
 - 使用页面统计
+
 ```dart
-void fun(){
-   /// 如果需要使用页面统计，则先打开该设置
+void fun() {
+  /// 如果需要使用页面统计，则先打开该设置
   FlUMeng().setPageCollectionModeManual();
 
-   /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
+  /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
   FlUMeng().setPageCollectionModeAuto();
 
-   /// 进入页面统计 
+  /// 进入页面统计 
   FlUMeng().onPageStart();
 
-   /// 离开页面统计
+  /// 离开页面统计
   FlUMeng().onPageEnd();
-
 }
 ```
+
 - 错误发送
+
 ```dart
-void fun(){
-    /// 错误发送  仅支持 Android
+void fun() {
+  /// 错误发送  仅支持 Android
   FlUMeng().report Error();
 }
 ```
-
 
 ## android 如遇到 Duplicate class com.google.common.util.concurrent.ListenableFuture的错误
 

@@ -1,8 +1,6 @@
 #import "UMengPlugin.h"
 #import <UMCommon/UMConfigure.h>
 #import <UMCommon/MobClick.h>
-#import <UMAPM/UMCrashConfigure.h>
-#import <UMAPM/UMAPMConfig.h>
 
 @implementation UMengPlugin
 
@@ -14,18 +12,6 @@
     [channel setMethodCallHandler:^(FlutterMethodCall *_Nonnull call, FlutterResult _Nonnull result) {
         if ([@"init" isEqualToString:call.method]) {
             NSDictionary *args = call.arguments;
-            NSDictionary *crash = args[@"crashMode"];
-            if (crash != nil) {
-                [NSURLProtocol registerClass:[NSURLProtocol class]];
-                [UMCrashConfigure enableNetworkForProtocol:[crash[@"enableNetworkForProtocol"] boolValue]];
-                UMAPMConfig *config = [UMAPMConfig defaultConfig];
-                config.crashAndBlockMonitorEnable = [crash[@"enableCrashAndBlock"] boolValue];
-                config.launchMonitorEnable = [crash[@"enableLaunch"] boolValue];
-                config.memMonitorEnable = [crash[@"enableMEM"] boolValue];
-                config.oomMonitorEnable = [crash[@"enableOOM"] boolValue];
-                config.networkEnable = [crash[@"networkEnable"] boolValue];
-                [UMCrashConfigure setAPMConfig:config];
-            }
             [UMConfigure initWithAppkey:args[@"appKey"] channel:args[@"channel"]];
             result(@(YES));
         } else if ([@"getUMId" isEqualToString:call.method]) {
@@ -76,10 +62,6 @@
             result(@(YES));
         } else if ([@"onPageEnd" isEqualToString:call.method]) {
             [MobClick endLogPageView:call.arguments];
-            result(@(YES));
-        } else if ([@"setAppVersion" isEqualToString:call.method]) {
-            NSDictionary *args = call.arguments;
-            [UMCrashConfigure setAppVersion:args[@"version"] buildVersion:args[@"buildId"]];
             result(@(YES));
         } else {
             result(FlutterMethodNotImplemented);

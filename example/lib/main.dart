@@ -160,26 +160,11 @@ class _HomePageState extends State<_HomePage> {
             children: <Widget>[
               ElevatedButton(
                   onPressed: () async {
-                    final bool data =
-                        await FlUMeng().setCustomLogWithCrash('key', 'type');
-                    text = 'setCustomLogWithCrash  $data';
-                    setState(() {});
-                  },
-                  child: const Text('setCustomLogWithCrash')),
-              ElevatedButton(
-                  onPressed: () async {
                     final bool data = await FlUMeng().reportError('error');
                     text = 'reportError  $data';
                     setState(() {});
                   },
                   child: const Text('reportError')),
-              ElevatedButton(
-                  onPressed: () async {
-                    final String? data = await FlUMeng().getUMAPMFlag();
-                    text = 'getUMAPMFlag  $data';
-                    setState(() {});
-                  },
-                  child: const Text('getUMAPMFlag')),
             ])
       ]
     ]);
