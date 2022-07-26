@@ -31,7 +31,7 @@ class _HomePageState extends State<_HomePage> {
   /// 注册友盟
   Future<void> init() async {
     debugPrint('注册友盟');
-    final bool? data = await FlUMeng().init(
+    final bool data = await FlUMeng().init(
         preInit: true,
         androidAppKey: '5f8fe2abfac90f1c19a8642e',
         iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
