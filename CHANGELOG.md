@@ -1,4 +1,4 @@
-## 3.0.0
+## 3.0.1
 
 * Split APM to [fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
 * Added [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
