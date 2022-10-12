@@ -1,3 +1,7 @@
+## 3.1.0
+
+* Upgrade version of umeng sdk
+
 ## 3.0.1
 
 * Split APM to [fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
@@ -5,12 +9,12 @@
 
 ## 2.6.0
 
-* Update the UmengSDK version on Android
+* Upgrade version of umeng sdk
 * Adaptive Flutter 3.0
 
 ## 2.5.2
 
-* Update the UmengSDK version on Android
+* Upgrade version of umeng sdk
 
 ## 2.5.0
 
@@ -24,19 +28,19 @@
 
 ## 2.3.0
 
-* Update build.gradle
+* Upgrade build.gradle
 * Added interfaces to get integration test information
 * Add some methods, which you can see in Example
 
 ## 2.2.1
 
-* Update the UmengSDK version on Android
+* Upgrade version of umeng sdk
 
 ## 2.2.0
 
 * Remove instance , direct initialization
-* Update gradle version
-* Update kotlin version
+* Upgrade gradle version
+* Upgrade kotlin version
 
 ## 2.1.1
 
@@ -54,23 +58,23 @@
 
 ## 1.1.9
 
-* Upgrade Android Umeng SDK version
+* Upgrade version of umeng sdk
 * Add platform restrictions
 
 ## 1.1.8
 
 * Modify the return parameter to be non null
-* Update Android version
+* Upgrade Android version
 
 ## 1.1.7
 
-* Update Android com.android.tools.build:gradle version
+* Upgrade Android com.android.tools.build:gradle version
 * Remove AndroidManifest.xml minSdkVersion
 * Replace jcenter() to mavenCentral()
 
 ## 1.1.6
 
-* Update umeng new branch build.gradle
+* Upgrade umeng new branch build.gradle
 
 ## 1.1.5
 
@@ -80,7 +84,7 @@
 
 * Add doc
 * Add return parameter
-* Update sdk version
+* Upgrade sdk version
 
 ## 1.1.1
 
@@ -89,7 +93,7 @@
 
 ## 1.0.0
 
-* Update flutter 2.0
+* Upgrade flutter 2.0
 
 ## 0.0.6
 
