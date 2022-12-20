@@ -12,6 +12,13 @@
 ```dart
 
 Future<void> initState() async {
+  /// 务必先预初始化 随后调用自己的 用户授权协议 之后再进行正常初始化
+  final bool? data = await FlUMeng().init(
+      preInit:true,
+      androidAppKey: '5f8fe2abfac90f1c19a8642e',
+      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
+      channel: 'channel');
+      
   /// 注册友盟 统计 性能检测
   final bool? data = await FlUMeng().init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
