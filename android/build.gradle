@@ -2,6 +2,7 @@ group 'fl.umeng'
 version '1.0'
 
 buildscript {
+    ext.kotlin_version = '1.7.20'
     repositories {
         google()
         mavenCentral()
@@ -10,7 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -26,7 +27,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -44,9 +45,9 @@ android {
 }
 
 dependencies {
-    api 'com.umeng.umsdk:common:9.5.4'
+    api 'com.umeng.umsdk:common:9.5.6'
     api 'com.umeng.umsdk:asms:1.6.3'
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {

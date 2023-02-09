@@ -1,6 +1,6 @@
 name: fl_umeng
 description: umeng plugin for flutter, only Android and IOS are supported
-version: 3.1.1
+version: 3.2.0
 repository: https://github.com/Wayaer/fl_umeng.git
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
 
 flutter:
   plugin:
