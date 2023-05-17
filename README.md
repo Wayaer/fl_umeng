@@ -1,11 +1,11 @@
-### 友盟统计 for Flutter
+# 友盟统计 for Flutter
 
 - 3.0.0 更新
 - 移除APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
 - 新增 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
 - 以上均基于 fl_umeng 必须初始化友盟`FlUMeng().init()`
 
-- android 配置 `/android/app/build.gradle/`
+## android 配置 `/android/app/build.gradle/`
 
 ```groovy
 android {
