@@ -1,3 +1,7 @@
+## 3.3.0
+
+* Upgrade version of umeng sdk
+
 ## 3.2.0
 
 * Upgrade version of umeng sdk

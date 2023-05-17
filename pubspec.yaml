@@ -1,6 +1,6 @@
 name: fl_umeng
 description: umeng plugin for flutter, only Android and IOS are supported
-version: 3.2.0
+version: 3.3.0
 repository: https://github.com/Wayaer/fl_umeng.git
 
 environment:
