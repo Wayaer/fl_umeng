@@ -26,14 +26,12 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
             "init" -> {
                 val key = call.argument<String>("appKey")
                 val channel = call.argument<String>("channel")
-                val preInit = call.argument<Boolean>("preInit")
-                if (preInit == true) {
-                    UMConfigure.preInit(context, key, channel)
-                } else {
-                    UMConfigure.init(context, key, channel, UMConfigure.DEVICE_TYPE_PHONE, null)
-                }
+                UMConfigure.preInit(context, key, channel)
+                UMConfigure.submitPolicyGrantResult(context, true)
+                UMConfigure.init(context, key, channel, UMConfigure.DEVICE_TYPE_PHONE, null)
                 result.success(true)
             }
+
             "getUMId" -> {
                 result.success(
                     mapOf(
@@ -42,6 +40,7 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                     )
                 )
             }
+
             "getDeviceInfo" -> {
                 result.success(
                     mapOf(
@@ -65,21 +64,25 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                     )
                 )
             }
+
             "setEncryptEnabled" -> {
                 UMConfigure.setEncryptEnabled(call.arguments as Boolean)
                 result.success(true)
             }
+
             "getTestDeviceInfo" -> result.success(DeviceConfig.getDeviceIdForGeneral(context))
             "setLogEnabled" -> {
                 UMConfigure.setLogEnabled(call.arguments as Boolean)
                 result.success(true)
             }
+
             "onEvent" -> {
                 val event = call.argument<String>("event")
                 val map = call.argument<Map<String, *>>("properties")
                 MobclickAgent.onEventObject(context, event, map)
                 result.success(true)
             }
+
             "onProfileSignIn" -> {
                 val provider = call.argument<String?>("provider")
                 val userID = call.argument<String>("userID")
@@ -90,34 +93,42 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 }
                 result.success(true)
             }
+
             "onProfileSignOff" -> {
                 MobclickAgent.onProfileSignOff()
                 result.success(true)
             }
+
             "setPageCollectionModeAuto" -> {
                 MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
                 result.success(true)
             }
+
             "setPageCollectionModeManual" -> {
                 MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL)
                 result.success(true)
             }
+
             "onPageStart" -> {
                 MobclickAgent.onPageStart(call.arguments as String)
                 result.success(true)
             }
+
             "onPageEnd" -> {
                 MobclickAgent.onPageEnd(call.arguments as String)
                 result.success(true)
             }
+
             "reportError" -> {
                 MobclickAgent.reportError(context, call.arguments as String)
                 result.success(true)
             }
+
             "onKillProcess" -> {
                 MobclickAgent.onKillProcess(context)
                 result.success(true)
             }
+
             else -> result.notImplemented()
         }
     }

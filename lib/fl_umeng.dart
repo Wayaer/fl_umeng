@@ -18,14 +18,12 @@ class FlUMeng {
   Future<bool> init(
       {required String androidAppKey,
       required String iosAppKey,
-      bool preInit = false,
       String channel = ''}) async {
     if (!_supportPlatform) return false;
-    final bool? state =
-        await _channel.invokeMethod<bool?>('init', <String, dynamic>{
+    final bool? state = await _channel.invokeMethod<bool?>(
+        'init', <String, dynamic>{
       'appKey': _isAndroid ? androidAppKey : iosAppKey,
-      'channel': channel,
-      'preInit': preInit
+      'channel': channel
     });
     _isInit = state ?? false;
     return state ?? false;

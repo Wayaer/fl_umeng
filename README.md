@@ -1,9 +1,12 @@
 # 友盟统计 for Flutter
 
+- 3.5.0 更新
+    - 移除预初始化，只调用一次初始化即可
+
 - 3.0.0 更新
-- 移除APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
-- 新增 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
-- 以上均基于 fl_umeng 必须初始化友盟`FlUMeng().init()`
+    - 移除APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
+    - 新增 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
+    - 以上均基于 fl_umeng 必须初始化友盟`FlUMeng().init()`
 
 ## android 配置 `/android/app/build.gradle/`
 
@@ -29,14 +32,7 @@ android {
 ```dart
 
 Future<void> initState() async {
-  /// 务必先预初始化 随后调用自己的 用户授权协议 之后再进行正常初始化
-  final bool? data = await FlUMeng().init(
-      preInit: true,
-      androidAppKey: '5f8fe2abfac90f1c19a8642e',
-      iosAppKey: '5f8fe4d4c1122b44acfc7aa7',
-      channel: 'channel');
-
-  /// 注册友盟 统计 性能检测
+  /// 注册友盟 统计 性能检测 
   final bool? data = await FlUMeng().init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
       iosAppKey: '5f8fe4d4c1122b44acfc7aa7',

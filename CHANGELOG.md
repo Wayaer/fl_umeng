@@ -1,6 +1,6 @@
-## 3.3.0
+## 3.5.0
 
-* Upgrade version of umeng sdk
+* To remove `preinit`, you only need to initialize it once
 
 ## 3.2.0
 
