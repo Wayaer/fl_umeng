@@ -1,0 +1,26 @@
+name: fl_umeng_apm
+description: umeng apm plugin for flutter, only Android and IOS are supported
+version: 0.4.1
+repository: https://github.com/Wayaer/fl_umeng_apm.git
+
+environment:
+  sdk: '>=2.12.0 <4.0.0'
+  flutter: '>=2.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fl_umeng: ^3.5.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+
+flutter:
+
+  plugin:
+    platforms:
+      android:
+        package: fl.umeng.apm
+        pluginClass: UMengAPMPlugin
+      ios:
+        pluginClass: UMengAPMPlugin
