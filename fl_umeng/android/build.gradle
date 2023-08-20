@@ -2,7 +2,7 @@ group 'fl.umeng'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.7.20'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         mavenCentral()
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    api 'com.umeng.umsdk:common:9.6.1'
+    api 'com.umeng.umsdk:common:9.6.4'
     api 'com.umeng.umsdk:asms:1.8.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.umeng.example">
+    xmlns:tools="http://schemas.android.com/tools">
     <!--允许程序写入本地存储-->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
