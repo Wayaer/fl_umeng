@@ -23,34 +23,19 @@ class UMengAPMPlugin : FlutterPlugin, MethodCallHandler {
             "init" -> {
                 val argument = call.arguments as Map<*, *>
                 val bundle = Bundle()
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_JAVA, argument["enableJava"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_NATIVE, argument["enableNative"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_CRASH_UNEXP, argument["enableUnExp"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_ANR, argument["enableAnr"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_PA, argument["enablePa"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_LAUNCH, argument["enableLaunch"] == true
-                )
-                bundle.putBoolean(
-                    UMCrash.KEY_ENABLE_MEM, argument["enableMEM"] == true
-                )
+                bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_JAVA, argument["enableJava"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_NATIVE, argument["enableNative"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_CRASH_UNEXP, argument["enableUnExp"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_ANR, argument["enableAnr"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_PA, argument["enablePa"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_LAUNCH, argument["enableLaunch"] == true)
+                bundle.putBoolean(UMCrash.KEY_ENABLE_MEM, argument["enableMEM"] == true)
                 UMCrash.initConfig(bundle)
                 result.success(true)
             }
+
             "setAppVersion" -> {
-                UMCrash.setAppVersion(
-                    call.argument("version"), call.argument("subVersion"), call.argument("buildId")
-                )
+                UMCrash.setAppVersion(call.argument("version"), call.argument("subVersion"), call.argument("buildId"))
                 result.success(true)
             }
 
@@ -59,10 +44,12 @@ class UMengAPMPlugin : FlutterPlugin, MethodCallHandler {
                 UMCrash.setDebug(call.arguments as Boolean)
                 result.success(true)
             }
+
             "customLog" -> {
                 UMCrash.generateCustomLog(call.argument<String>("key"), "type")
                 result.success(true)
             }
+
             else -> result.notImplemented()
         }
     }
