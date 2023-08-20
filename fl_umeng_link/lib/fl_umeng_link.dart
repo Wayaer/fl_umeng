@@ -1,3 +1,5 @@
+library fl_umeng_link;
+
 import 'package:fl_umeng/fl_umeng.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +19,7 @@ class FlUMengLink {
 
   static FlUMengLink? _singleton;
 
-  static const MethodChannel _channel = MethodChannel('UMeng.link');
+  final MethodChannel _channel = const MethodChannel('UMeng.link');
 
   /// 获取A启动参数 link 和install
   Future<UMLinkResult?> getLaunchParams({bool clipBoardEnabled = true}) async {

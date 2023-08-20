@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
       title: 'UMeng Link Example',
       home: Scaffold(
           appBar: AppBar(title: const Text('UMeng Link Example')),
