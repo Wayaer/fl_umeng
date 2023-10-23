@@ -17,7 +17,7 @@ void main() {
 }
 
 class _HomePage extends StatefulWidget {
-  const _HomePage({Key? key}) : super(key: key);
+  const _HomePage();
 
   @override
   State<_HomePage> createState() => _HomePageState();
