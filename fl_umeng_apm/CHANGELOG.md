@@ -1,5 +1,6 @@
-## 0.5.0
+## 0.5.1
 
+* Add `namespace` in Android
 * Upgrade version of umeng sdk
 
 ## 0.1.1
