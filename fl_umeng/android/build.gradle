@@ -27,7 +27,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
 
     if (project.android.hasProperty("namespace")) {
         namespace 'fl.umeng'
@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    api 'com.umeng.umsdk:common:9.6.5'
+    api 'com.umeng.umsdk:common:9.6.7'
     api 'com.umeng.umsdk:asms:1.8.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

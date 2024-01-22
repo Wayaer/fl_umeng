@@ -47,11 +47,17 @@ class _HomePageState extends State<_HomePage> {
     debugPrint('getInstallParams 初始化成功 = $value');
 
     final bool handler =
-        FlUMengLink().addMethodCallHandler(onInstall: (UMLinkResult? result) {
+        FlUMengLink().addMethodCallHandler(onLink: (UMLinkResult? result) {
+      text = 'onLink\n${result?.toMap()}';
+      debugPrint(text);
+      setState(() {});
+    }, onInstall: (UMLinkResult? result) {
       text = 'onInstall\n${result?.toMap()}';
+      debugPrint(text);
       setState(() {});
     }, onError: (String? error) {
       text = 'onError\n$error';
+      debugPrint(text);
       setState(() {});
     });
     debugPrint('addMethodCallHandler 初始化成功 = $handler');
