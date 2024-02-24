@@ -76,7 +76,7 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             this@UMengLinkPlugin.installParams = params
             channel.invokeMethod(
                 "onInstall", mapOf(
-                    "uri" to uri.path, "installParams" to params
+                    "uri" to uri.toString(), "installParams" to params
                 )
             )
         }
