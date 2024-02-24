@@ -1,3 +1,7 @@
+## 0.4.2
+
+* [Merged pull requests](https://github.com/Wayaer/fl_umeng/pull/29#issue-2151505388)
+
 ## 0.4.1
 
 * Upgrade version of umeng sdk

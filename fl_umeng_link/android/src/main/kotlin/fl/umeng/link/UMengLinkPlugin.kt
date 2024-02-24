@@ -43,6 +43,7 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     )
                 )
             }
+
             "getInstallParams" -> {
                 val clipBoardEnabled = call.arguments as Boolean
                 if (!clipBoardEnabled) {
@@ -52,6 +53,7 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 }
                 result.success(true)
             }
+
             else -> result.notImplemented()
         }
     }
@@ -72,7 +74,7 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
 
         override fun onInstall(params: HashMap<String, String>, uri: Uri) {
-            this@UMengLinkPlugin.uri = uri.path
+            this@UMengLinkPlugin.uri = uri.toString()
             this@UMengLinkPlugin.installParams = params
             channel.invokeMethod(
                 "onInstall", mapOf(
