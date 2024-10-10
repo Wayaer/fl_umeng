@@ -8,8 +8,6 @@ PODS:
     - Flutter
     - UMAPM
   - Flutter (1.0.0)
-  - flutter_curiosity (0.0.1):
-    - Flutter
   - UMAPM (1.8.4)
   - UMCommon (7.4.1):
     - UMDevice
@@ -19,7 +17,6 @@ DEPENDENCIES:
   - fl_umeng (from `.symlinks/plugins/fl_umeng/ios`)
   - fl_umeng_apm (from `.symlinks/plugins/fl_umeng_apm/ios`)
   - Flutter (from `Flutter`)
-  - flutter_curiosity (from `.symlinks/plugins/flutter_curiosity/ios`)
 
 SPEC REPOS:
   trunk:
@@ -34,18 +31,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fl_umeng_apm/ios"
   Flutter:
     :path: Flutter
-  flutter_curiosity:
-    :path: ".symlinks/plugins/flutter_curiosity/ios"
 
 SPEC CHECKSUMS:
-  fl_umeng: 00ce9ce554e2dcfd0523800662ba37072ee9e132
+  fl_umeng: c71039d9231d125789de8ad2c5b8bbb901464f4c
   fl_umeng_apm: c9e40f03394f69e281d4d1f0597b0d41bdd34e91
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_curiosity: aa3e631bfaa89b3bfe52d776d26906928d2ea263
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   UMAPM: f3d56b9a9c445af10a74f0cdbf5417045d2ab4f2
   UMCommon: 47e0b53f6a36568e958a5abd005ed7577fcac9ad
   UMDevice: 9ef8045b59e0479cff7062915c879a1af46fa094
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

@@ -14,12 +14,12 @@ A new Flutter plugin.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '10.0'
+  s.platform = :ios, '12.0'
   s.dependency 'UMCommon'
   s.dependency 'UMDevice'
   s.frameworks = 'CoreTelephony','SystemConfiguration'
   s.libraries = 'z','sqlite3','c++'
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.static_framework = true
 end

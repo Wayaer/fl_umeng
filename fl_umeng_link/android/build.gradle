@@ -2,16 +2,14 @@ group 'fl.umeng.link'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         mavenCentral()
-        maven { url  'https://repo1.maven.org/maven2/'}
+        maven { url 'https://repo1.maven.org/maven2/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.5.2'
     }
 }
 
@@ -27,21 +25,25 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdk = 34
 
     if (project.android.hasProperty("namespace")) {
         namespace 'fl.umeng.link'
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdk = 16
     }
-}
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.umeng.umsdk:link:1.2.0'
+    dependencies {
+        implementation 'com.umeng.umsdk:link:2.0.0'
+    }
 }

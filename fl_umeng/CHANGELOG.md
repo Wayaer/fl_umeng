@@ -1,3 +1,8 @@
+## 3.7.0
+
+* Upgrade version of umeng sdk
+* Update gradle version
+
 ## 3.6.1
 
 * Upgrade version of umeng sdk

@@ -1,5 +1,3 @@
-library fl_umeng_link;
-
 import 'package:fl_umeng/fl_umeng.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';

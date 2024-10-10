@@ -4,26 +4,18 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
-}
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
 android {
-    compileSdk 34
+    compileSdk flutter.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -38,10 +30,10 @@ android {
     }
     defaultConfig {
         applicationId "com.umeng.example"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     buildTypes {
@@ -54,10 +46,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-rules.pro'
         }
     }
-    lint {
-        checkReleaseBuilds false
-        disable 'InvalidPackage'
-    }
+
     namespace 'com.umeng.example'
 
 }
@@ -65,5 +54,3 @@ android {
 flutter {
     source '../..'
 }
-
-dependencies {}

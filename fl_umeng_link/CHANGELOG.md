@@ -1,3 +1,8 @@
+## 0.5.0
+
+* Upgrade version of umeng sdk
+* Update gradle version
+
 ## 0.4.2
 
 * [Merged pull requests](https://github.com/Wayaer/fl_umeng/pull/29#issue-2151505388)
