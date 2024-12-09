@@ -83,8 +83,8 @@
         _uri = url.absoluteString;
         installParams = params;
         [self.channel invokeMethod:@"onInstall" arguments:@{
-            @"installParams": params,
-            @"uri": url.absoluteString,
+            @"installParams": params?:@{},
+            @"uri": url.absoluteString?:@"",
         }];
     }
 }
