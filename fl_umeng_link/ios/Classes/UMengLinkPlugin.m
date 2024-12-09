@@ -71,8 +71,8 @@
     _path = path;
     linkParams = params;
     [self.channel invokeMethod:@"onLink" arguments:@{
-        @"linkParams": params,
-        @"path": path,
+        @"linkParams": params?:@{},
+        @"path": path?:@"",
     }];
 }
 
