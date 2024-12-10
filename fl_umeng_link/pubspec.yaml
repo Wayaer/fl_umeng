@@ -1,6 +1,6 @@
 name: fl_umeng_link
 description: Umeng link plugin for flutter, only Android and IOS are supported
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/Wayaer/fl_umeng/tree/main/fl_umeng_link
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fl_umeng: ^4.0.0
+  fl_umeng: ^4.0.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

@@ -1,5 +1,4 @@
 import Flutter
-import UMCommon
 
 public class UMengPlugin: NSObject, FlutterPlugin {
     private var channel: FlutterMethodChannel

@@ -1,5 +1,4 @@
 import Flutter
-import UMLink
 
 public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
     private var channel: FlutterMethodChannel

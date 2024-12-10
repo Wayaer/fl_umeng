@@ -112,7 +112,7 @@ class CrashMode {
   /// 官方文档 https://developer.umeng.com/docs/193624/detail/291394
   final bool enableNetworkForProtocol;
 
-  Map<String, bool> toMap() => <String, bool>{
+  Map<String, bool> toMap() => {
         'enableLaunch': enableLaunch,
         'enableMEM': enableMEM,
         'enableJava': enableJava,
