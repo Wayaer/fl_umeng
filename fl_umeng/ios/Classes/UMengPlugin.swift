@@ -1,5 +1,6 @@
 import Flutter
 import UMCommon
+
 public class UMengPlugin: NSObject, FlutterPlugin {
     private var channel: FlutterMethodChannel
     
@@ -38,10 +39,42 @@ public class UMengPlugin: NSObject, FlutterPlugin {
         case "setEncryptEnabled":
             UMConfigure.setEncryptEnabled(call.arguments as! Bool)
             result(true)
+        case "setAnalyticsEnabled":
+            let args = call.arguments as! [String: Any]
+            UMConfigure.setAnalyticsEnabled(args["enabled"] as! Bool)
+            result(true)
+        case "setDomain":
+            UMConfigure.setDomain(call.arguments as? String)
+            result(true)
         case "getTestDeviceInfo":
             result(UMConfigure.deviceIDForIntegration())
         case "setLogEnabled":
             UMConfigure.setLogEnabled(call.arguments as! Bool)
+            result(true)
+        case "setSecret":
+            MobClick.setSecret(call.arguments as! String)
+            result(true)
+        case "registerPreProperties":
+            let args = call.arguments as! [String: Any]
+            MobClick.registerPreProperties(args)
+            result(true)
+        case "unregisterPreProperty":
+            MobClick.unregisterPreProperty(call.arguments as! String)
+            result(true)
+        case "getPreProperties":
+            result(MobClick.getPreProperties())
+        case "clearPreProperties":
+            MobClick.clearPreProperties()
+            result(true)
+        case "userProfileMobile":
+            MobClick.userProfileMobile(call.arguments as! String)
+            result(true)
+        case "userProfileEMail":
+            MobClick.userProfileEMail(call.arguments as! String)
+            result(true)
+        case "userProfile":
+            let args = call.arguments as! [String: Any]
+            MobClick.userProfile(args["value"]!, to: args["key"] as! String)
             result(true)
         case "onEvent":
             let args = call.arguments as! [String: Any]
@@ -52,7 +85,7 @@ public class UMengPlugin: NSObject, FlutterPlugin {
         case "onProfileSignIn":
             let args = call.arguments as! [String: Any]
             let provider = args["provider"] as? String
-            let userId = args["userID"] as! String
+            let userId = args["userId"] as! String
             if provider != nil {
                 MobClick.profileSignIn(withPUID: userId, provider: provider!)
             } else {
@@ -62,11 +95,14 @@ public class UMengPlugin: NSObject, FlutterPlugin {
         case "onProfileSignOff":
             MobClick.profileSignOff()
             result(true)
-        case "setPageCollectionModeAuto":
-            MobClick.setAutoPageEnabled(true)
+        case "setLatitude":
+            let args = call.arguments as! [String: Any]
+            let longitude = args["longitude"] as! Double
+            let latitude = args["latitude"] as! Double
+            MobClick.setLatitude(longitude, longitude: longitude)
             result(true)
-        case "setPageCollectionModeManual":
-            MobClick.setAutoPageEnabled(false)
+        case "setPageCollectionMode":
+            MobClick.setAutoPageEnabled(call.arguments as! Bool)
             result(true)
         case "onPageStart":
             MobClick.beginLogPageView(call.arguments as! String)

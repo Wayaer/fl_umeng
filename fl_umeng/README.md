@@ -1,8 +1,8 @@
 # 友盟统计 for Flutter
 
- - 友盟APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
- - 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
- - 以上均基于 `fl_umeng` 必须初始化友盟`FlUMeng().init()`
+- 友盟APM 性能监测 如需要直接使用[fl_umeng_apm](https://pub.dev/packages/fl_umeng_apm)
+- 友盟超链 [fl_umeng_link](https://pub.dev/packages/fl_umeng_link)
+- 以上均基于 `fl_umeng` 必须初始化友盟`FlUMeng().init()`
 
 ## android 配置 `/android/app/build.gradle/`
 
@@ -23,11 +23,13 @@ android {
 
 ## 开始使用
 
+- 全部方法参考 [example](https://github.com/Wayaer/fl_umeng/blob/main/fl_umeng/example/lib/main.dart)
+
 - 注册友盟
 
 ```dart
 
-Future<void> initState() async {
+Future<void> init() async {
   /// 注册友盟 统计 性能检测 
   final bool? data = await FlUMeng().init(
       androidAppKey: '5f8fe2abfac90f1c19a8642e',
@@ -37,8 +39,6 @@ Future<void> initState() async {
 }
 
 ```
-
-- 设置账号
 
 ```dart
 
@@ -67,11 +67,9 @@ void fun() {
 
 ```dart
 void fun() {
-  /// 如果需要使用页面统计，则先打开该设置
-  FlUMeng().setPageCollectionModeManual();
 
-  /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
-  FlUMeng().setPageCollectionModeAuto();
+  /// 设置是否自动采集；
+  FlUMeng().setPageCollectionMode();
 
   /// 进入页面统计 
   FlUMeng().onPageStart();
@@ -86,6 +84,6 @@ void fun() {
 ```dart
 void fun() {
   /// 错误发送  仅支持 Android
-  FlUMeng().report Error();
+  FlUMeng().reportError();
 }
 ```

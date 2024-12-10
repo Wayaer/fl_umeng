@@ -8,6 +8,7 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.json.JSONObject
 
 
 open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
@@ -70,6 +71,27 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 result.success(true)
             }
 
+            "setAnalyticsEnabled" -> {
+                val enableAplCollection = call.argument<Boolean>("enableAplCollection")!!
+                UMConfigure.enableAplCollection(enableAplCollection)
+                val enableImeiCollection = call.argument<Boolean>("enableImeiCollection")!!
+                UMConfigure.enableImeiCollection(enableImeiCollection)
+                val enableImsiCollection = call.argument<Boolean>("enableImsiCollection")!!
+                UMConfigure.enableImsiCollection(enableImsiCollection)
+                val enableIccidCollection = call.argument<Boolean>("enableIccidCollection")!!
+                UMConfigure.enableIccidCollection(enableIccidCollection)
+                val enableUmcCfgSwitch = call.argument<Boolean>("enableUmcCfgSwitch")!!
+                UMConfigure.enableUmcCfgSwitch(enableUmcCfgSwitch)
+                val enableWiFiMacCollection = call.argument<Boolean>("enableWiFiMacCollection")!!
+                UMConfigure.enableWiFiMacCollection(enableWiFiMacCollection)
+                result.success(true)
+            }
+
+            "setDomain" -> {
+                UMConfigure.setDomain(call.arguments as String)
+                result.success(true)
+            }
+
             "getTestDeviceInfo" -> result.success(DeviceConfig.getDeviceIdForGeneral(context))
             "setLogEnabled" -> {
                 UMConfigure.setLogEnabled(call.arguments as Boolean)
@@ -85,11 +107,11 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
             "onProfileSignIn" -> {
                 val provider = call.argument<String?>("provider")
-                val userID = call.argument<String>("userID")
+                val userId = call.argument<String>("userId")
                 if (provider != null) {
-                    MobclickAgent.onProfileSignIn(userID, provider)
+                    MobclickAgent.onProfileSignIn(userId, provider)
                 } else {
-                    MobclickAgent.onProfileSignIn(userID)
+                    MobclickAgent.onProfileSignIn(userId)
                 }
                 result.success(true)
             }
@@ -99,13 +121,61 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                 result.success(true)
             }
 
-            "setPageCollectionModeAuto" -> {
-                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
+            "userProfileMobile" -> {
+                MobclickAgent.userProfileMobile(call.arguments as String)
                 result.success(true)
             }
 
-            "setPageCollectionModeManual" -> {
-                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL)
+            "userProfileEMail" -> {
+                MobclickAgent.userProfileEMail(call.arguments as String)
+                result.success(true)
+            }
+
+            "userProfile" -> {
+                val map = call.arguments as Map<*, *>
+                MobclickAgent.userProfile(map["key"] as String, map["value"] as String)
+                result.success(true)
+            }
+
+            "setLatitude" -> {
+                val map = call.arguments as Map<*, *>
+                MobclickAgent.setLocation(map["longitude"] as Double, map["latitude"] as Double)
+                result.success(true)
+            }
+
+            "setSecret" -> {
+                MobclickAgent.setSecret(context, call.arguments as String)
+                result.success(true)
+            }
+
+            "registerPreProperties" -> {
+                val map = call.arguments as Map<*, *>
+                MobclickAgent.registerPreProperties(context, JSONObject(map))
+                result.success(true)
+            }
+
+            "unregisterPreProperty" -> {
+                MobclickAgent.unregisterPreProperty(context, call.arguments as String)
+                result.success(true)
+            }
+
+            "getPreProperties" -> {
+                val json = MobclickAgent.getPreProperties(context)
+                result.success(json.toMap())
+            }
+
+            "clearPreProperties" -> {
+                MobclickAgent.clearPreProperties(context)
+                result.success(true)
+            }
+
+            "setPageCollectionMode" -> {
+                val isAuto = call.arguments as Boolean
+                if (isAuto) {
+                    MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO)
+                } else {
+                    MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL)
+                }
                 result.success(true)
             }
 
@@ -138,4 +208,7 @@ open class UMengPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
+    private fun JSONObject.toMap(): Map<String, Any> {
+        return keys().asSequence().associateWith { get(it) }
+    }
 }

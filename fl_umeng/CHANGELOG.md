@@ -1,3 +1,10 @@
+## 4.0.0
+
+* 更新友盟 sdk
+* 新增部分方法
+* 修改部分旧方法
+* 参考 example
+
 ## 3.7.0
 
 * Upgrade version of umeng sdk

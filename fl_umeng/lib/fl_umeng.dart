@@ -20,21 +20,21 @@ class FlUMeng {
       required String iosAppKey,
       String channel = ''}) async {
     if (!_supportPlatform) return false;
-    final bool? state = await _channel.invokeMethod<bool>('init',
+    final state = await _channel.invokeMethod<bool>('init',
         {'appKey': _isAndroid ? androidAppKey : iosAppKey, 'channel': channel});
-    _isInit = state ?? false;
-    return state ?? false;
+    if (state != null) _isInit = state;
+    return _isInit;
   }
 
   /// 获取zid 和 umid
   Future<UMengID?> getUMId() async {
-    if (!_supportPlatform) return null;
+    if (!_supportPlatform || !_isInit) return null;
     final map = await _channel.invokeMethod<Map<dynamic, dynamic>>('getUMId');
     return UMengID(map?['umId'] as String?, map?['umzId'] as String?);
   }
 
   Future<UMengDeviceInfo?> getDeviceInfo() async {
-    if (!_supportPlatform) return null;
+    if (!_supportPlatform || !_isInit) return null;
     final map =
         await _channel.invokeMethod<Map<dynamic, dynamic>>('getDeviceInfo');
     if (_isAndroid && map != null) {
@@ -48,9 +48,124 @@ class FlUMeng {
 
   /// 设置是否对日志信息进行加密, 默认NO
   Future<bool> setEncryptEnabled(bool enabled) async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state =
         await _channel.invokeMethod<bool>('setEncryptEnabled', enabled);
+    return state ?? false;
+  }
+
+  /// 是否开启统计，默认为YES(开启状态)
+  /// 设置为NO,可关闭友盟统计功能.
+  Future<bool> setAnalyticsEnabled({
+    /// for ios
+    bool enabled = true,
+
+    /// for android
+    bool enableAplCollection = true,
+    bool enableImeiCollection = true,
+    bool enableImsiCollection = true,
+    bool enableIccidCollection = true,
+    bool enableUmcCfgSwitch = true,
+    bool enableWiFiMacCollection = true,
+  }) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>('setAnalyticsEnabled', {
+      if (_isIOS) 'enabled': enabled,
+      if (_isAndroid) ...{
+        'enableAplCollection': enableAplCollection,
+        'enableImeiCollection': enableImeiCollection,
+        'enableImsiCollection': enableImsiCollection,
+        'enableIccidCollection': enableIccidCollection,
+        'enableUmcCfgSwitch': enableUmcCfgSwitch,
+        'enableWiFiMacCollection': enableWiFiMacCollection
+      }
+    });
+    return state ?? false;
+  }
+
+  /// 设置上报统计日志的主域名。此函数必须在SDK初始化函数调用之前调用。
+  /// domain 传日志的主域名收数地址,参数不能为null或者空串。例如：https://www.umeng.com
+  Future<bool> setDomain(String domain) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>('setDomain', domain);
+    return state ?? false;
+  }
+
+  /// 设置 app secret
+  Future<bool> setSecret(String secret) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>('setSecret', secret);
+    return state ?? false;
+  }
+
+  /// 设置预置事件属性 键值对 会覆盖同名的key
+  /// [dynamic] 仅支持基础类型
+  Future<bool> registerPreProperties(Map<String, dynamic> properties) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state =
+        await _channel.invokeMethod<bool>('registerPreProperties', properties);
+    return state ?? false;
+  }
+
+  /// 删除指定预置事件属性
+  Future<bool> unregisterPreProperty(String key) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state =
+        await _channel.invokeMethod<bool>('unregisterPreProperty', key);
+    return state ?? false;
+  }
+
+  /// 清空所有预置事件属性。
+  Future<bool> clearPreProperties() async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>('clearPreProperties');
+    return state ?? false;
+  }
+
+  /// 获取预置事件所有属性；如果不存在，则返回空
+  Future<Map<dynamic, dynamic>?> getPreProperties() async {
+    if (!_supportPlatform || !_isInit) return null;
+    return await _channel
+        .invokeMethod<Map<dynamic, dynamic>>('getPreProperties');
+  }
+
+  /// 设置用户属性(电话)
+  /// 用户属性设置一定要在账号统计调用后即profileSignInWithPUID:。
+  /// @param mobile : 电话;
+  Future<bool> userProfileMobile(String mobile) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state =
+        await _channel.invokeMethod<bool>('userProfileMobile', mobile);
+    return state ?? false;
+  }
+
+  /// 设置用户属性(邮箱)
+  /// 用户属性设置一定要在账号统计调用后即profileSignInWithPUID:。
+  /// @param mail : 邮箱;
+  Future<bool> userProfileEMail(String mail) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>('userProfileEMail', mail);
+    return state ?? false;
+  }
+
+  /// 设置用户属性（自定义）
+  /// 用户属性设置一定要在账号统计调用后即 profileSignIn:。
+  /// @param value : 用户属性值(String);
+  /// @param key : 用户属性键;
+  Future<bool> userProfile(String key, String value) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel
+        .invokeMethod<bool>('userProfile', {'key': key, 'value': value});
+    return state ?? false;
+  }
+
+  /// 设置经纬度信息
+  /// @param latitude 纬度.
+  /// @param longitude 经度.
+  Future<bool> setLatitude(double longitude, double latitude) async {
+    if (!_supportPlatform || !_isInit) return false;
+    final state = await _channel.invokeMethod<bool>(
+        'setLatitude', {'longitude': longitude, 'latitude': latitude});
     return state ?? false;
   }
 
@@ -58,7 +173,7 @@ class FlUMeng {
   /// android  "$deviceId"
   /// ios  "$deviceId"
   Future<String?> getTestDeviceInfo() async {
-    if (!_supportPlatform) return null;
+    if (!_supportPlatform || !_isInit) return null;
     return await _channel.invokeMethod<String>('getTestDeviceInfo');
   }
 
@@ -71,61 +186,53 @@ class FlUMeng {
 
   /// 设置用户账号
   /// provider 账号来源。不能以下划线"_"开头，使用大写字母和数字标识，长度小于32 字节
-  Future<bool> signIn(String userID, {String? provider}) async {
-    if (!_supportPlatform) return false;
+  Future<bool> signIn(String userId, {String? provider}) async {
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>('onProfileSignIn',
-        {'userID': userID, if (provider != null) 'provider': provider});
+        {'userId': userId, if (provider != null) 'provider': provider});
     return state ?? false;
   }
 
-  /// 取消用户账号
+  /// 停止sign-in的统计
   Future<bool> signOff() async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>('onProfileSignOff');
     return state ?? false;
   }
 
   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
   Future<bool> onEvent(String event, Map<String, dynamic> properties) async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>(
         'onEvent', {'event': event, 'properties': properties});
     return state ?? false;
   }
 
-  /// 如果需要使用页面统计，则先打开该设置
-  Future<bool> setPageCollectionModeManual() async {
-    if (!_supportPlatform) return false;
-    final state =
-        await _channel.invokeMethod<bool>('setPageCollectionModeManual');
-    return state ?? false;
-  }
-
   /// 进入页面统计
   Future<bool> onPageStart(String pageName) async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>('onPageStart', pageName);
     return state ?? false;
   }
 
   /// 离开页面统计
   Future<bool> onPageEnd(String pageName) async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>('onPageEnd', pageName);
     return state ?? false;
   }
 
-  /// 如果不需要上述页面统计，在完成后可关闭该设置；如果没有用该功能可忽略；
-  Future<bool> setPageCollectionModeAuto() async {
-    if (!_supportPlatform) return false;
+  /// [isAuto] 是否自动上报 false 需要手动上报
+  Future<bool> setPageCollectionMode(bool isAuto) async {
+    if (!_supportPlatform || !_isInit) return false;
     final state =
-        await _channel.invokeMethod<bool>('setPageCollectionModeAuto');
+        await _channel.invokeMethod<bool>('setPageCollectionMode', isAuto);
     return state ?? false;
   }
 
   /// 是否开启日志
   Future<bool> setLogEnabled(bool enabled) async {
-    if (!_supportPlatform) return false;
+    if (!_supportPlatform || !_isInit) return false;
     final state = await _channel.invokeMethod<bool>('setLogEnabled', enabled);
     return state ?? false;
   }
