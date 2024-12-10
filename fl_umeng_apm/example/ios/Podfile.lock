@@ -8,10 +8,11 @@ PODS:
     - Flutter
     - UMAPM
   - Flutter (1.0.0)
-  - UMAPM (1.8.4)
-  - UMCommon (7.4.1):
+  - UMAPM (1.9.10):
+    - UMCommon
+  - UMCommon (7.5.0):
     - UMDevice
-  - UMDevice (3.1.0)
+  - UMDevice (3.4.0)
 
 DEPENDENCIES:
   - fl_umeng (from `.symlinks/plugins/fl_umeng/ios`)
@@ -33,13 +34,13 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  fl_umeng: c71039d9231d125789de8ad2c5b8bbb901464f4c
-  fl_umeng_apm: c9e40f03394f69e281d4d1f0597b0d41bdd34e91
+  fl_umeng: b9e5f1ef93e858f3226ccebf89c549f0464869fd
+  fl_umeng_apm: 5ad59cd2662e07ed1a4a7cc2bd88cd2cd0e3735c
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  UMAPM: f3d56b9a9c445af10a74f0cdbf5417045d2ab4f2
-  UMCommon: 47e0b53f6a36568e958a5abd005ed7577fcac9ad
-  UMDevice: 9ef8045b59e0479cff7062915c879a1af46fa094
+  UMAPM: bce5ec6b56dda703f7f828b0126e85597c77bf75
+  UMCommon: 9bfb19a2f40c2521901dacb579bccb0b1cdba8da
+  UMDevice: dcdf7ec167387837559d149fbc7d793d984faf82
 
-PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
 COCOAPODS: 1.15.2

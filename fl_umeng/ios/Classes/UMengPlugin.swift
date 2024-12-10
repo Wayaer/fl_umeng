@@ -4,16 +4,13 @@ import UMCommon
 public class UMengPlugin: NSObject, FlutterPlugin {
     private var channel: FlutterMethodChannel
     
-    private var registrar: FlutterPluginRegistrar
-    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "UMeng", binaryMessenger: registrar.messenger())
-        let plugin = UMengPlugin(registrar, channel)
+        let plugin = UMengPlugin(channel)
         registrar.addMethodCallDelegate(plugin, channel: channel)
     }
     
-    init(_ registrar: FlutterPluginRegistrar, _ channel: FlutterMethodChannel) {
-        self.registrar = registrar
+    init(_ channel: FlutterMethodChannel) {
         self.channel = channel
     }
     
