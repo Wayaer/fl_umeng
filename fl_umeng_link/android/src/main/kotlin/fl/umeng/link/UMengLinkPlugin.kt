@@ -45,11 +45,11 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
 
             "getInstallParams" -> {
-                val clipBoardEnabled = call.arguments as Boolean
-                if (!clipBoardEnabled) {
+                val clipBoardEnabled = call.arguments as Boolean?
+                if (clipBoardEnabled == null) {
                     MobclickLink.getInstallParams(context, umLinkAdapter)
                 } else {
-                    MobclickLink.getInstallParams(context, false, umLinkAdapter)
+                    MobclickLink.getInstallParams(context, clipBoardEnabled, umLinkAdapter)
                 }
                 result.success(true)
             }

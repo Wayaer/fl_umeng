@@ -4,8 +4,6 @@ import UMLink
 public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
     private var channel: FlutterMethodChannel
 
-    private var registrar: FlutterPluginRegistrar
-
     private var path: String?
     private var uri: String?
     private var linkParams: [AnyHashable: Any]?
@@ -13,12 +11,11 @@ public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "UMeng.link", binaryMessenger: registrar.messenger())
-        let plugin = UMengLinkPlugin(registrar, channel)
+        let plugin = UMengLinkPlugin(channel)
         registrar.addMethodCallDelegate(plugin, channel: channel)
     }
 
-    init(_ registrar: FlutterPluginRegistrar, _ channel: FlutterMethodChannel) {
-        self.registrar = registrar
+    init(_ channel: FlutterMethodChannel) {
         self.channel = channel
     }
 
@@ -39,6 +36,7 @@ public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
             } else {
                 MobClickLink.getInstallParams(invokeInstallParams)
             }
+            result(true)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -46,8 +44,6 @@ public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
 
     public func invokeInstallParams(params: [AnyHashable: Any]?, url: URL?, error: Error?) {
         if error == nil {
-            channel.invokeMethod("onError", arguments: error!.localizedDescription)
-        } else {
             uri = url?.absoluteString
             installParams = params
             let params: [String: Any?] = [
@@ -55,6 +51,8 @@ public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
                 "uri": url?.absoluteString,
             ]
             channel.invokeMethod("onInstall", arguments: params)
+        } else {
+            channel.invokeMethod("onError", arguments: error!.localizedDescription)
         }
     }
 

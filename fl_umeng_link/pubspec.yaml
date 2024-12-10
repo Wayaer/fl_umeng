@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fl_umeng: ^3.7.0
+  fl_umeng: ^4.0.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0

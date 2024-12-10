@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- 替换为自己的scheme  -->
-                <data android:scheme="wellyoung://" />
+                <data android:scheme="scheme://" />
             </intent-filter>
             <!--    以上需要添加内容   -->
         </activity>

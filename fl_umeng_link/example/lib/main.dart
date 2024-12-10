@@ -43,10 +43,10 @@ class _HomePageState extends State<_HomePage> {
     await FlUMeng().setLogEnabled(true);
 
     debugPrint('监听友盟超链安装参数回调');
-    final bool value = await FlUMengLink().getInstallParams();
+    final value = await FlUMengLink().getInstallParams();
     debugPrint('getInstallParams 初始化成功 = $value');
 
-    final bool handler =
+    final handler =
         FlUMengLink().addMethodCallHandler(onLink: (UMLinkResult? result) {
       text = 'onLink\n${result?.toMap()}';
       debugPrint(text);
@@ -78,11 +78,18 @@ class _HomePageState extends State<_HomePage> {
               child: Text(text, textAlign: TextAlign.center))),
       ElevatedButton(
           onPressed: () async {
-            final UMLinkResult? result = await FlUMengLink().getLaunchParams();
+            final result = await FlUMengLink().getLaunchParams();
             text = 'getLaunchParams  ${result?.toMap()}';
             setState(() {});
           },
           child: const Text('getLaunchParams')),
+      ElevatedButton(
+          onPressed: () async {
+            final result = await FlUMengLink().getInstallParams();
+            text = 'getInstallParams $result';
+            setState(() {});
+          },
+          child: const Text('getInstallParams')),
     ]);
   }
 }

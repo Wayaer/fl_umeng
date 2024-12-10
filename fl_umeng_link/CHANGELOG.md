@@ -1,3 +1,7 @@
+## 1.0.0
+
+# 更新友盟 sdk
+
 ## 0.5.0
 
 * Upgrade version of umeng sdk
