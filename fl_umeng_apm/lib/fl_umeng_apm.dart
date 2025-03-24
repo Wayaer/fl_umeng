@@ -16,8 +16,10 @@ class FlUMengAPM {
   /// 初始化
   Future<bool> init([CrashMode crashMode = const CrashMode()]) async {
     if (!_checkUMeng || !_supportPlatform) return false;
-    final bool? state =
-        await _channel.invokeMethod<bool?>('init', crashMode.toMap());
+    final bool? state = await _channel.invokeMethod<bool?>(
+      'init',
+      crashMode.toMap(),
+    );
     return state ?? false;
   }
 
@@ -26,10 +28,16 @@ class FlUMengAPM {
   /// [buildId] 1
   /// [subVersion] 1 仅支持android
   Future<bool> setAppVersion(
-      String version, String subVersion, String buildId) async {
+    String version,
+    String subVersion,
+    String buildId,
+  ) async {
     if (!_checkUMeng || !_supportPlatform) return false;
-    final bool? state = await _channel.invokeMethod<bool?>('setAppVersion',
-        {'version': version, 'subVersion': subVersion, 'buildId': buildId});
+    final bool? state = await _channel.invokeMethod<bool?>('setAppVersion', {
+      'version': version,
+      'subVersion': subVersion,
+      'buildId': buildId,
+    });
     return state ?? false;
   }
 
@@ -42,16 +50,20 @@ class FlUMengAPM {
   /// 设置 Crash debug 模式  only Android
   Future<bool> setDebug(bool isDebug) async {
     if (!_checkUMeng || !_isAndroid) return false;
-    final bool? state =
-        await _channel.invokeMethod<bool?>('setUMCrashDebug', isDebug);
+    final bool? state = await _channel.invokeMethod<bool?>(
+      'setUMCrashDebug',
+      isDebug,
+    );
     return state ?? false;
   }
 
   /// 自定义log only Android
   Future<bool> setCustomLog(String key, String type) async {
     if (!_checkUMeng || !_isAndroid) return false;
-    final bool? state = await _channel
-        .invokeMethod<bool?>('customLog', {'key': key, 'type': type});
+    final bool? state = await _channel.invokeMethod<bool?>('customLog', {
+      'key': key,
+      'type': type,
+    });
     return state ?? false;
   }
 

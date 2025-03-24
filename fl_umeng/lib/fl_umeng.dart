@@ -15,13 +15,16 @@ class FlUMeng {
 
   /// 初始化
   /// [preInit] 是否预加载 仅支持android
-  Future<bool> init(
-      {required String androidAppKey,
-      required String iosAppKey,
-      String channel = ''}) async {
+  Future<bool> init({
+    required String androidAppKey,
+    required String iosAppKey,
+    String channel = '',
+  }) async {
     if (!_supportPlatform) return false;
-    final state = await _channel.invokeMethod<bool>('init',
-        {'appKey': _isAndroid ? androidAppKey : iosAppKey, 'channel': channel});
+    final state = await _channel.invokeMethod<bool>('init', {
+      'appKey': _isAndroid ? androidAppKey : iosAppKey,
+      'channel': channel,
+    });
     if (state != null) _isInit = state;
     return _isInit;
   }
@@ -35,13 +38,17 @@ class FlUMeng {
 
   Future<UMengDeviceInfo?> getDeviceInfo() async {
     if (!_supportPlatform || !_isInit) return null;
-    final map =
-        await _channel.invokeMethod<Map<dynamic, dynamic>>('getDeviceInfo');
+    final map = await _channel.invokeMethod<Map<dynamic, dynamic>>(
+      'getDeviceInfo',
+    );
     if (_isAndroid && map != null) {
       return DeviceAndroidInfo.formMap(map);
     } else if (_isIOS && map != null) {
       return DeviceIOSInfo(
-          map["isJailbroken"], map["isPirated"], map["isProxy"]);
+        map["isJailbroken"],
+        map["isPirated"],
+        map["isProxy"],
+      );
     }
     return null;
   }
@@ -49,8 +56,10 @@ class FlUMeng {
   /// 设置是否对日志信息进行加密, 默认NO
   Future<bool> setEncryptEnabled(bool enabled) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state =
-        await _channel.invokeMethod<bool>('setEncryptEnabled', enabled);
+    final state = await _channel.invokeMethod<bool>(
+      'setEncryptEnabled',
+      enabled,
+    );
     return state ?? false;
   }
 
@@ -77,8 +86,8 @@ class FlUMeng {
         'enableImsiCollection': enableImsiCollection,
         'enableIccidCollection': enableIccidCollection,
         'enableUmcCfgSwitch': enableUmcCfgSwitch,
-        'enableWiFiMacCollection': enableWiFiMacCollection
-      }
+        'enableWiFiMacCollection': enableWiFiMacCollection,
+      },
     });
     return state ?? false;
   }
@@ -102,16 +111,20 @@ class FlUMeng {
   /// [dynamic] 仅支持基础类型
   Future<bool> registerPreProperties(Map<String, dynamic> properties) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state =
-        await _channel.invokeMethod<bool>('registerPreProperties', properties);
+    final state = await _channel.invokeMethod<bool>(
+      'registerPreProperties',
+      properties,
+    );
     return state ?? false;
   }
 
   /// 删除指定预置事件属性
   Future<bool> unregisterPreProperty(String key) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state =
-        await _channel.invokeMethod<bool>('unregisterPreProperty', key);
+    final state = await _channel.invokeMethod<bool>(
+      'unregisterPreProperty',
+      key,
+    );
     return state ?? false;
   }
 
@@ -125,8 +138,9 @@ class FlUMeng {
   /// 获取预置事件所有属性；如果不存在，则返回空
   Future<Map<dynamic, dynamic>?> getPreProperties() async {
     if (!_supportPlatform || !_isInit) return null;
-    return await _channel
-        .invokeMethod<Map<dynamic, dynamic>>('getPreProperties');
+    return await _channel.invokeMethod<Map<dynamic, dynamic>>(
+      'getPreProperties',
+    );
   }
 
   /// 设置用户属性(电话)
@@ -134,8 +148,10 @@ class FlUMeng {
   /// @param mobile : 电话;
   Future<bool> userProfileMobile(String mobile) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state =
-        await _channel.invokeMethod<bool>('userProfileMobile', mobile);
+    final state = await _channel.invokeMethod<bool>(
+      'userProfileMobile',
+      mobile,
+    );
     return state ?? false;
   }
 
@@ -154,8 +170,10 @@ class FlUMeng {
   /// @param key : 用户属性键;
   Future<bool> userProfile(String key, String value) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state = await _channel
-        .invokeMethod<bool>('userProfile', {'key': key, 'value': value});
+    final state = await _channel.invokeMethod<bool>('userProfile', {
+      'key': key,
+      'value': value,
+    });
     return state ?? false;
   }
 
@@ -164,8 +182,10 @@ class FlUMeng {
   /// @param longitude 经度.
   Future<bool> setLatitude(double longitude, double latitude) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state = await _channel.invokeMethod<bool>(
-        'setLatitude', {'longitude': longitude, 'latitude': latitude});
+    final state = await _channel.invokeMethod<bool>('setLatitude', {
+      'longitude': longitude,
+      'latitude': latitude,
+    });
     return state ?? false;
   }
 
@@ -188,8 +208,10 @@ class FlUMeng {
   /// provider 账号来源。不能以下划线"_"开头，使用大写字母和数字标识，长度小于32 字节
   Future<bool> signIn(String userId, {String? provider}) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state = await _channel.invokeMethod<bool>('onProfileSignIn',
-        {'userId': userId, if (provider != null) 'provider': provider});
+    final state = await _channel.invokeMethod<bool>('onProfileSignIn', {
+      'userId': userId,
+      if (provider != null) 'provider': provider,
+    });
     return state ?? false;
   }
 
@@ -203,8 +225,10 @@ class FlUMeng {
   /// 发送自定义事件（目前属性值支持字符、整数、浮点、长整数，暂不支持NULL、布尔、MAP、数组）
   Future<bool> onEvent(String event, Map<String, dynamic> properties) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state = await _channel.invokeMethod<bool>(
-        'onEvent', {'event': event, 'properties': properties});
+    final state = await _channel.invokeMethod<bool>('onEvent', {
+      'event': event,
+      'properties': properties,
+    });
     return state ?? false;
   }
 
@@ -225,8 +249,10 @@ class FlUMeng {
   /// [isAuto] 是否自动上报 false 需要手动上报
   Future<bool> setPageCollectionMode(bool isAuto) async {
     if (!_supportPlatform || !_isInit) return false;
-    final state =
-        await _channel.invokeMethod<bool>('setPageCollectionMode', isAuto);
+    final state = await _channel.invokeMethod<bool>(
+      'setPageCollectionMode',
+      isAuto,
+    );
     return state ?? false;
   }
 

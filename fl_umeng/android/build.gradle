@@ -32,12 +32,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
@@ -46,7 +50,7 @@ android {
     }
 
     dependencies {
-        api 'com.umeng.umsdk:common:9.7.9'
-        api 'com.umeng.umsdk:asms:1.8.4'
+        api 'com.umeng.umsdk:common:9.8.0'
+        api 'com.umeng.umsdk:asms:1.8.6'
     }
 }

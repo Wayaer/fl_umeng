@@ -22,8 +22,10 @@ class FlUMengLink {
   /// 获取A启动参数 link 和install
   Future<UMLinkResult?> getLaunchParams({bool clipBoardEnabled = true}) async {
     if (!_supportPlatform) return null;
-    final data =
-        await _channel.invokeMethod('getLaunchParams', clipBoardEnabled);
+    final data = await _channel.invokeMethod(
+      'getLaunchParams',
+      clipBoardEnabled,
+    );
     return data == null ? null : UMLinkResult?.fromMap(data);
   }
 
@@ -31,8 +33,10 @@ class FlUMengLink {
   /// 返回仅表示调用成功 结果通过 [addMethodCallHandler] 获取
   Future<bool> getInstallParams({bool? clipBoardEnabled}) async {
     if (!_supportPlatform) return false;
-    final state =
-        await _channel.invokeMethod('getInstallParams', clipBoardEnabled);
+    final state = await _channel.invokeMethod(
+      'getInstallParams',
+      clipBoardEnabled,
+    );
     return state ?? false;
   }
 
@@ -95,7 +99,7 @@ class UMLinkResult {
         'path': path,
         'uri': uri,
         'linkParams': linkParams,
-        'installParams': installParams
+        'installParams': installParams,
       };
 }
 
