@@ -31,12 +31,15 @@ class FlUMengLink {
 
   /// 安装后 获取的参数
   /// 返回仅表示调用成功 结果通过 [addMethodCallHandler] 获取
-  Future<bool> getInstallParams({bool? clipBoardEnabled}) async {
+  /// [useClipboard] 是否从剪贴板获取参数
+  /// [token] 从指定文本获取参数
+  /// [token]会覆盖[useClipboard]
+  Future<bool> getInstallParams({String? token, bool? useClipboard}) async {
     if (!_supportPlatform) return false;
-    final state = await _channel.invokeMethod(
-      'getInstallParams',
-      clipBoardEnabled,
-    );
+    final state = await _channel.invokeMethod('getInstallParams', {
+      'useClipboard': useClipboard,
+      'token': token,
+    });
     return state ?? false;
   }
 

@@ -23,6 +23,7 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private var uri: String? = null
     private var linkParams: HashMap<String, String>? = null
     private var installParams: HashMap<String, String>? = null
+    private var binding: ActivityPluginBinding? = null
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(binding.binaryMessenger, "UMeng.link")
@@ -45,11 +46,14 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
 
             "getInstallParams" -> {
-                val clipBoardEnabled = call.arguments as Boolean?
-                if (clipBoardEnabled == null) {
-                    MobclickLink.getInstallParams(context, umLinkAdapter)
+                val useClipboard = call.argument<Boolean?>("useClipboard")
+                val token = call.argument<String?>("token")
+                if (token != null) {
+                    MobclickLink.getInstallParams(context, token, umLinkAdapter)
+                } else if (useClipboard != null) {
+                    MobclickLink.getInstallParams(context, useClipboard, umLinkAdapter)
                 } else {
-                    MobclickLink.getInstallParams(context, clipBoardEnabled, umLinkAdapter)
+                    MobclickLink.getInstallParams(context, umLinkAdapter)
                 }
                 result.success(true)
             }
@@ -91,8 +95,6 @@ class UMengLinkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
-
-    private var binding: ActivityPluginBinding? = null
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         this.binding = binding

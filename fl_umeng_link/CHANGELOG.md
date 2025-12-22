@@ -1,3 +1,7 @@
+## 1.0.4
+
+* `getInstallParams` 新增 token 参数
+
 ## 1.0.3
 
 * JVM 修改为 17
