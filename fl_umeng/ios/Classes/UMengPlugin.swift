@@ -95,7 +95,7 @@ public class UMengPlugin: NSObject, FlutterPlugin {
             let args = call.arguments as! [String: Any]
             let longitude = args["longitude"] as! Double
             let latitude = args["latitude"] as! Double
-            MobClick.setLatitude(longitude, longitude: longitude)
+            MobClick.setLatitude(latitude, longitude: longitude)
             result(true)
         case "setPageCollectionMode":
             MobClick.setAutoPageEnabled(call.arguments as! Bool)

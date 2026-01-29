@@ -50,7 +50,7 @@ android {
     }
 
     dependencies {
-        api 'com.umeng.umsdk:common:9.8.0'
-        api 'com.umeng.umsdk:asms:1.8.6'
+        api 'com.umeng.umsdk:common:9.8.9'
+        api 'com.umeng.umsdk:asms:1.8.7'
     }
 }
