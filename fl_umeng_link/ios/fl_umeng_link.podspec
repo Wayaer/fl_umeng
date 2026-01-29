@@ -18,7 +18,7 @@ A new Flutter project.
   s.dependency 'Flutter'
   s.platform = :ios, '12.0'
   s.dependency 'fl_umeng'
-  s.dependency 'UMLink'
+  s.dependency 'UMLink', '1.3.0'
   s.static_framework = true
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'

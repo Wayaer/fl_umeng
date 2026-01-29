@@ -1,3 +1,8 @@
+## 1.1.0
+
+* 更新 SDk
+* 修复 getInstallParams 方法在 ios 设备上 token 参数问题
+
 ## 1.0.4
 
 * `getInstallParams` 新增 token 参数

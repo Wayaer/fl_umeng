@@ -30,10 +30,10 @@ public class UMengLinkPlugin: NSObject, FlutterPlugin, MobClickLinkDelegate {
             result(params)
         case "getInstallParams":
             let args = call.arguments as! [String: Any]
-            let token = args["token"] as! String?
-            let useClipboard = args["useClipboard"] as! Bool?
+            let token = args["token"] as? String
+            let useClipboard = args["useClipboard"] as? Bool
             if token != nil {
-                MobClickLink.getInstallParams(invokeInstallParams, token: token)
+                MobClickLink.getInstallParams(invokeInstallParams, token: token!)
             } else if useClipboard != nil {
                 MobClickLink.getInstallParams(invokeInstallParams, enablePasteboard: useClipboard!)
             } else {
