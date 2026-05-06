@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 export 'package:fl_umeng/fl_umeng.dart';
 
 class FlUMengAPM {
-  factory FlUMengAPM() => _singleton ??= FlUMengAPM._();
+  factory FlUMengAPM() => _instance;
 
   FlUMengAPM._();
 
-  static FlUMengAPM? _singleton;
+  static FlUMengAPM _instance = FlUMengAPM._();
+
+  static FlUMengAPM get instance => _instance;
 
   final MethodChannel _channel = const MethodChannel('UMeng.apm');
 

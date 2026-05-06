@@ -49,6 +49,6 @@ android {
     }
 
     dependencies {
-        implementation 'com.umeng.umsdk:apm:2.0.6'
+        implementation 'com.umeng.umsdk:apm:2.0.8'
     }
 }

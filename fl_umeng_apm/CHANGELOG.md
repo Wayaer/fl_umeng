@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Android 更新友盟APM sdk 到 2.0.8
+
 ## 1.1.1
 
 * Android 更新友盟APM sdk 到 2.0.6
