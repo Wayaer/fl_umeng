@@ -16,7 +16,7 @@ A new Flutter plugin.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '12.0'
-  s.dependency 'UMCommon', '7.5.8'
+  s.dependency 'UMCommon', '7.5.10'
   s.dependency 'UMDevice', '3.5.0'
   s.frameworks = 'CoreTelephony','SystemConfiguration'
   s.libraries = 'z','sqlite3','c++'

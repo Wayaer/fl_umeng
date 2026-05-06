@@ -1,17 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-const MethodChannel _channel = MethodChannel('UMeng');
-
 class FlUMeng {
-  factory FlUMeng() => _singleton ??= FlUMeng._();
+  factory FlUMeng() => _instance;
 
   FlUMeng._();
 
-  static FlUMeng? _singleton;
+  static final FlUMeng _instance = FlUMeng._();
+
+  static FlUMeng get instance => _instance;
+
   bool _isInit = false;
 
   bool get isInit => _isInit;
+
+  final MethodChannel _channel = MethodChannel('UMeng');
 
   /// 初始化
   /// [preInit] 是否预加载 仅支持android
