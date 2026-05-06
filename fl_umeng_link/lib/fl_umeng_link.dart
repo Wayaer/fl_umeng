@@ -11,11 +11,13 @@ typedef FlUMLinkHandlerError = void Function(String? error);
 typedef FlUMLinkHandlerLink = void Function(UMLinkResult? result);
 
 class FlUMengLink {
-  factory FlUMengLink() => _singleton ??= FlUMengLink._();
+  factory FlUMengLink() => _instance;
 
   FlUMengLink._();
 
-  static FlUMengLink? _singleton;
+  static final FlUMengLink _instance = FlUMengLink._();
+
+  static FlUMengLink get instance => _instance;
 
   final MethodChannel _channel = const MethodChannel('UMeng.link');
 
